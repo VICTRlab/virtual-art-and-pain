@@ -17,3 +17,7 @@
 
 ## react-unity-webgl
  https://www.npmjs.com/package/react-unity-webgl
+
+ # Contact
+
+ Email: joshua.steubs@gmail.com
