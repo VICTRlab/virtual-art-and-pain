@@ -1,4 +1,5 @@
 import Unity, { UnityContext } from "react-unity-webgl";
+import { useEffect } from "react";
 
 const unityContext = new UnityContext({
     loaderUrl: "Build/Builds.loader.js",
@@ -7,6 +8,20 @@ const unityContext = new UnityContext({
     codeUrl: "Build/Builds.wasm",
 });
 
+
 export default function Museum() {
-    return <Unity unityContext={unityContext} />;
+    useEffect(function () {
+        unityContext.on("canvas", function (canvas) {
+            canvas.width = 960;
+            canvas.height = 720;
+        });
+    }, []);
+
+    return (
+        <Unity
+            unityContext={unityContext}
+            matchWebGLToCanvasSize={false}
+            style={{ width: "960px", height: "720px" }}
+        />
+    );
 }
