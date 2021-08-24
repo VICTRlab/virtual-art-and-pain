@@ -1,10 +1,10 @@
 import Unity, { UnityContext } from "react-unity-webgl";
 
 const unityContext = new UnityContext({
-    loaderUrl: "build/myunityapp.loader.js",
-    dataUrl: "build/myunityapp.data",
-    frameworkUrl: "build/myunityapp.framework.js",
-    codeUrl: "build/myunityapp.wasm",
+    loaderUrl: "Build/Builds.loader.js",
+    dataUrl: "Build/Builds.data",
+    frameworkUrl: "Build/Builds.framework.js",
+    codeUrl: "Build/Builds.wasm",
 });
 
 export default function Museum() {
