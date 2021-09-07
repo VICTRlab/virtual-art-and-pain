@@ -2,10 +2,10 @@ import Unity, { UnityContext } from "react-unity-webgl";
 import { useEffect } from "react";
 
 const unityContext = new UnityContext({
-    loaderUrl: "Build/Builds.loader.js",
-    dataUrl: "Build/Builds.data",
-    frameworkUrl: "Build/Builds.framework.js",
-    codeUrl: "Build/Builds.wasm",
+    loaderUrl: "Build/public.loader.js",
+    dataUrl: "Build/public.data",
+    frameworkUrl: "Build/public.framework.js",
+    codeUrl: "Build/public.wasm",
 });
 
 
