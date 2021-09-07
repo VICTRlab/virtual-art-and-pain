@@ -1,3 +1,7 @@
+# IMPORTANT NOTE
+
+I've moved work temporarily to a different repo on my personal account: https://github.com/steubs/virtual-art-and-pain/tree/main
+
 # virtual-art-and-pain
 
 
