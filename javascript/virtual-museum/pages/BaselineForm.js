@@ -363,7 +363,7 @@ class BaselineForm extends Component {
                                                             className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
                                                         />
                                                         <label htmlFor="sd" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Bachelor's degree
+                                                            Bachelor&apos;s degree
                                                         </label>
                                                     </div>
                                                     <div className="flex items-center">
@@ -374,7 +374,7 @@ class BaselineForm extends Component {
                                                             className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
                                                         />
                                                         <label htmlFor="sd" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Master's degree (e.g. M.A., M.S., M.B.A)
+                                                            Master&apos;s degree (e.g. M.A., M.S., M.B.A)
                                                         </label>
                                                     </div>
                                                     <div className="flex items-center">
