@@ -1,22 +1,22 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import Museum from './Museum'
+import App from './App'
 export default function Home() {
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>Virtual Museum</title>
         <meta name="description" content="" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Museum />
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Virtual Museum
-        </h1>
+
+      <main>
+        <App />
       </main>
-      <footer className={styles.footer}>
+      <footer>
       </footer>
     </div>
   )
 }
+
+//<Museum />
