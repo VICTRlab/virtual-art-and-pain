@@ -23,14 +23,14 @@ export default function App() {
                         <p className='text-md font-medium text-gray-900'>Movement</p>
                         <ul className='list-disc list-inside'>
                             <li className='py-1'>Mouse (or trackpad) to look around</li>
-                            <li className='py-1'>'W' to move forward</li>
-                            <li className='py-1'>'A' to move left</li>
-                            <li className='py-1'>'S' to move right</li>
-                            <li className='py-1'>'D' to move backwards</li>
+                            <li className='py-1'>W to move forward</li>
+                            <li className='py-1'>A to move left</li>
+                            <li className='py-1'>S to move right</li>
+                            <li className='py-1'>D to move backwards</li>
                         </ul>
                         <p className='text-md font-medium text-gray-900'>Help</p>
                         <ul className='list-disc list-inside'>
-                            <li className='py-1'>If you can't move, try hitting escape.</li>
+                            <li className='py-1'>If you cannot move, try hitting escape.</li>
                         </ul>
                     </div>
 
