@@ -1,5 +1,5 @@
 import SubmitSurveyButton from "./SubmitSurveyButon"
-export default function BaseineForm() {
+export default function BaselineForm() {
     return (
         <>
             <div>
