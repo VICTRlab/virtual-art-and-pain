@@ -1,21 +1,22 @@
 import SubmitSurveyButton from "./SubmitSurveyButon"
 import { getDatabase, ref, set } from "firebase/database";
 import { useEffect, useState, Component } from "react";
+import FillinQuestion from "./FillinQuestion";
 class BaselineForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            answer1: '',
             q1_1: '',
-            q1_2: 'B',
+            q1_2: '',
             q1_3: '',
-            q1_4: 'C',
+            q1_4: '',
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     handleChange(event) {
-
         const val = event.target.name
         console.log(val);
         this.setState({ [val]: event.target.value });
@@ -27,11 +28,12 @@ class BaselineForm extends Component {
         console.log(this.state);
         event.preventDefault();
     }
-    writeUserData(userID) {
+    writeData(userID) {
         const db = getDatabase();
         set(ref(db, 'users/' + userID), this.state);
     }
     render() {
+
         return (
             <div>
 
@@ -49,24 +51,10 @@ class BaselineForm extends Component {
                                                 <div className="border-t border-gray-300" />
                                             </div>
                                         </div>
-                                        <div className="grid grid-cols-3 gap-6">
-                                            <div className="col-span-3 sm:col-span-2">
-                                                <label htmlFor="q1_1" className="block text-md font-medium text-gray-700">
-                                                    Q1.1 Participant ID # (NOTE FROM JOSH: Is this being kept in?)
-                                                </label>
-                                                <div className="mt-1 ">
-                                                    <input
-                                                        type="text"
-                                                        name="q1_1"
-                                                        id="id-num"
-                                                        className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300"
-                                                        placeholder="ID Number"
-                                                        value={this.state.q1_1}
-                                                        onChange={this.handleChange}
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <FillinQuestion
+                                            question="Participant ID"
+                                            name="q1_1"
+                                            placeholder="ID" />
                                         <div>
                                             <fieldset>
                                                 <div>
@@ -138,28 +126,10 @@ class BaselineForm extends Component {
                                                 </div>
                                             </fieldset>
                                         </div>
-
-                                        <div className="grid grid-cols-3 gap-6">
-                                            <div className="col-span-3 sm:col-span-2">
-                                                <label htmlFor="age" className="block text-md font-medium text-gray-700">
-                                                    Q1.3 What is your age?
-                                                </label>
-                                                <p className="text-sm text-gray-500">Enter your age as a number of years</p>
-
-                                                <div className="mt-1 ">
-
-                                                    <input
-                                                        type="text"
-                                                        name="q1_3"
-                                                        value={this.state.q1_3}
-                                                        onChange={this.handleChange}
-                                                        id="age"
-                                                        className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300"
-                                                        placeholder="Age"
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <FillinQuestion
+                                            name="q1_3"
+                                            question="What is your age?"
+                                            placeholder="Age" />
 
                                         <div>
                                             <fieldset>
