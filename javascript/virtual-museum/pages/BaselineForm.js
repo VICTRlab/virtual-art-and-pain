@@ -2,15 +2,13 @@ import SubmitSurveyButton from "./SubmitSurveyButon"
 import { getDatabase, ref, set } from "firebase/database";
 import { useEffect, useState, Component } from "react";
 import FillinQuestion from "./FillinQuestion";
+import RadioQuestion from "./RadioQuestion";
 class BaselineForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            answer1: '',
-            q1_1: '',
-            q1_2: '',
-            q1_3: '',
-            q1_4: '',
+            a1_1: '',
+            a1_2: '',
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -21,9 +19,23 @@ class BaselineForm extends Component {
         console.log(val);
         this.setState({ [val]: event.target.value });
     }
+    handleOptionChange(event) {
+        this.setState({
+            selectedOption: event.target.value
+        })
+    }
 
+    handle1_1Change(ans) {
+        this.setState({ a1_1: ans });
+    }
+    handle1_2Change(ans) {
+        this.setState({ a1_2: ans });
+    }
+    handle1_3Change(ans) {
+        this.setState({ a1_2: ans });
+    }
     handleSubmit(event) {
-        //alert('A name was submitted: ' + this.state.q1_1);
+        alert('A name was submitted: ' + this.state.q1_1);
         this.writeUserData(this.state.q1_1);
         console.log(this.state);
         event.preventDefault();
@@ -54,82 +66,19 @@ class BaselineForm extends Component {
                                         <FillinQuestion
                                             question="Participant ID"
                                             name="q1_1"
-                                            placeholder="ID" />
-                                        <div>
-                                            <fieldset>
-                                                <div>
-                                                    <legend className="block text-md font-medium text-gray-700">Q1.2 To which gender do you most identify?</legend>
-                                                </div>
-                                                <div className="mt-4 space-y-4">
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="f"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="f" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Female
-                                                        </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="m"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="m" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Male
-                                                        </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="nb"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="nb" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Non-binary/third gender
-                                                        </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="sd"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="sd" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Prefer to self describe:
-                                                        </label>
-                                                        <input
-                                                            type="text"
-                                                            name="self-d"
-                                                            id="self-d"
-                                                            className="mx-2 focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300"
-                                                            placeholder=" "
-                                                        />
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="pref-not"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="push-nothing" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Prefer not to answer
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </fieldset>
-                                        </div>
+                                            placeholder="ID"
+                                            onAnswerChange={this.handle1_1Change} />
+                                        <RadioQuestion
+                                            name="q1_2"
+                                            question="To which gender do you most identify?"
+                                            options={[{ text: "Female" }, { text: "Male" }, { text: "Non-binary/third gender" }, { text: "Prefer to self describe: ", fillIn: true }, { text: "Prefer not to answer" }]}
+                                            onAnswerChange={this.handle1_2Change} />
+
                                         <FillinQuestion
                                             name="q1_3"
                                             question="What is your age?"
-                                            placeholder="Age" />
+                                            placeholder="Age"
+                                            onAnswerChange={this.handle1_3Change} />
 
                                         <div>
                                             <fieldset>
