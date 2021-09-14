@@ -5,23 +5,33 @@ import { useState } from 'react'
 import Museum from "./Museum";
 export default function App() {
 
-    const [submit, setSurveySubmitted] = useState(false);
+    const [finishBaseline, setFinishBaseline] = useState(false);
+    const [finishOutcome1, setFinishOutcome1] = useState(false);
+    const [finishSocialConn, setFinishSocialConn] = useState(false);
+    const [finishTutorial, setFinishTutorial] = useState(false);
+    const [finishMuseum1, setFinishMuseum1] = useState(false);
+    const [finishOutcome2, setFinishOutcome2] = useState(false);
+    const [finishMuseum2, setFinishMuseum2] = useState(false);
+    const [finishOutcome3, setFinishOutcome3] = useState(false);
 
     function finishBaseLine() {
-        setSurveySubmitted(true);
+        setFinishBaseline(true);
     }
     function makeFullScreen() {
         //setFullScreen(true);
     }
     return (
         <div className='md:grid md:grid-cols-3 md:gap-6 bg-gray-100 w-full py-5'>
-            {submit === false && (
+            {finishBaseline === false && (
                 <div className='md:col-span-3 md:w-2/3 mx-auto'>
                     <BaselineForm submitSurvey={finishBaseLine} />
 
                 </div>
             )}
-            {submit === true && (
+            {finishBaseline === true && finishOutcome1 === false && <OutcomeForm />}
+            {finishOutcome1 === true && finishSocialConn === false && <SocialConnectPrime />}
+            {finishSocialConn === true && finishTutorial === false && <Tutorial />}
+            {finishTutorial === true && finishMuseum1 === false && (//M1
                 <>
                     <div className='md:col-span-2 flex items-center justify-center h-screen'>
                         <Museum makeFullScreen={makeFullScreen} />
@@ -43,8 +53,9 @@ export default function App() {
 
                 </>
             )}
-
-
+            {finishMuseum1 === true && finishOutcome2 === false && <OutcomeForm />}
+            {finishOutcome2 === true && finishMuseum2 === false && <Museum />}
+            {finishMuseum2 === true && finishOutcome3 === false && <OutcomeForm />}
         </div>
     );
 }
