@@ -29,7 +29,7 @@ export default class RadioGroup extends Component {
                     </div>
 
                     <div className="mt-1 ">
-                        {options.map((option) => (
+                        {this.props.options && options.map((option) => (
                             <div className="inline-block text-center mx-1" key={option.text}>
                                 <label htmlFor={option.text} className="mx-3 block text-sm font-medium text-gray-700">
                                     {option.text}
