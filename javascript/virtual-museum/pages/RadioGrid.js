@@ -40,9 +40,9 @@ export default class RadioGrid extends Component {
                 {this.props.subQuestions && subQuestions.map((subQuestion) => (
                     <div key={subQuestion.text}>
                         <fieldset>
-                            <div className="border grid grid-cols-10 gap-1 bg-gray-50 w-full py-5">
+                            <div className="border grid grid-cols-10 gap-1 bg-gray-20 w-full py-5">
                                 <div className="col-span-4">
-                                    <legend className="block text-md font-medium text-gray-700">
+                                    <legend className="mx-2 block text-md font-medium text-gray-700">
                                         {subQuestion.text}
                                     </legend>
                                     <p className="my-2 text-sm text-gray-500">{this.props.moreText}</p>
