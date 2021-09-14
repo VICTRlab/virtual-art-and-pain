@@ -1,39 +1,47 @@
 import SubmitSurveyButton from "./SubmitSurveyButon"
 import { getDatabase, ref, set } from "firebase/database";
 import { useEffect, useState, Component } from "react";
+import FillinQuestion from "./FillinQuestion";
+import RadioQuestion from "./RadioQuestion";
+import RadioGroup from "./RadioGroup";
+
+const TEMP_ID = "AABBCC"
 class BaselineForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            q1_1: '',
-            q1_2: 'B',
-            q1_3: '',
-            q1_4: 'C',
+            a1_1: '',
+            a2_3: '',
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     handleChange(event) {
-
         const val = event.target.name
         console.log(val);
         this.setState({ [val]: event.target.value });
     }
+    handleOptionChange(event) {
+        this.setState({
+            selectedOption: event.target.value
+        })
+    }
 
     handleSubmit(event) {
-        //alert('A name was submitted: ' + this.state.q1_1);
-        this.writeUserData(this.state.q1_1);
-        console.log(this.state);
+        //alert('Form submitted: ' + TEMP_ID);
+        this.writeData(TEMP_ID);
         event.preventDefault();
+        this.props.submitSurvey();
     }
-    writeUserData(userID) {
+    writeData(userID) {
         const db = getDatabase();
         set(ref(db, 'users/' + userID), this.state);
     }
     render() {
+
         return (
-            <div>
+            <div className="md:col-span-3 md:w-2/3 mx-auto">
 
                 <div>
                     <div className="md:grid md:grid-cols-2 md:gap-6">
@@ -49,668 +57,100 @@ class BaselineForm extends Component {
                                                 <div className="border-t border-gray-300" />
                                             </div>
                                         </div>
-                                        <div className="grid grid-cols-3 gap-6">
-                                            <div className="col-span-3 sm:col-span-2">
-                                                <label htmlFor="q1_1" className="block text-md font-medium text-gray-700">
-                                                    Q1.1 Participant ID # (NOTE FROM JOSH: Is this being kept in?)
-                                                </label>
-                                                <div className="mt-1 ">
-                                                    <input
-                                                        type="text"
-                                                        name="q1_1"
-                                                        id="id-num"
-                                                        className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300"
-                                                        placeholder="ID Number"
-                                                        value={this.state.q1_1}
-                                                        onChange={this.handleChange}
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <fieldset>
-                                                <div>
-                                                    <legend className="block text-md font-medium text-gray-700">Q1.2 To which gender do you most identify?</legend>
-                                                </div>
-                                                <div className="mt-4 space-y-4">
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="f"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="f" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Female
-                                                        </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="m"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="m" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Male
-                                                        </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="nb"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="nb" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Non-binary/third gender
-                                                        </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="sd"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="sd" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Prefer to self describe:
-                                                        </label>
-                                                        <input
-                                                            type="text"
-                                                            name="self-d"
-                                                            id="self-d"
-                                                            className="mx-2 focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300"
-                                                            placeholder=" "
-                                                        />
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="pref-not"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="push-nothing" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Prefer not to answer
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </fieldset>
-                                        </div>
 
-                                        <div className="grid grid-cols-3 gap-6">
-                                            <div className="col-span-3 sm:col-span-2">
-                                                <label htmlFor="age" className="block text-md font-medium text-gray-700">
-                                                    Q1.3 What is your age?
-                                                </label>
-                                                <p className="text-sm text-gray-500">Enter your age as a number of years</p>
+                                        <RadioQuestion
+                                            name="q1_2"
+                                            question="To which gender do you most identify?"
+                                            options={[{ text: "Female" }, { text: "Male" }, { text: "Non-binary/third gender" }, { text: "Prefer to self describe: ", fillIn: true }, { text: "Prefer not to answer" }]}
+                                            onAnswerChange={(ans) => this.setState({ a1_2: ans })}
+                                            onAnswerChangeFTB={(ans) => this.setState({ a1_2FTB: ans })} />
 
-                                                <div className="mt-1 ">
+                                        <FillinQuestion
+                                            name="q1_3"
+                                            question="What is your age?"
+                                            placeholder="Age"
+                                            onAnswerChange={(ans) => this.setState({ a1_3: ans })} />
+                                        <RadioQuestion name="q1_4"
+                                            question="Do you consider yourself do be Hispanic or Latinx? (Check one box)"
+                                            options={[{ text: "No" }, { text: "Yes" }, { text: "Unknown" }, { text: "Prefer not to answer" }]}
+                                            onAnswerChange={(ans) => this.setState({ a1_4: ans })}
+                                            onAnswerChangeFTB={(ans) => this.setState({ a1_4FTB: ans })} />
+                                        <RadioQuestion name="q1_6"
+                                            question="Education level (Select highest level attained)"
+                                            options={[
+                                                { text: "No high school diploma" },
+                                                { text: "High school graduate or GED" },
+                                                { text: "Some college, no degree" },
+                                                { text: "Occupational/technical/vocational program" },
+                                                { text: "Master's degree (e.g. M.A., M.S., M.B.A)" },
+                                                { text: "Professional school degree (e.g. M.D., D.D.S., D.V.M., J.D.)" }]}
+                                            onAnswerChange={(ans) => this.setState({ a1_6: ans })}
+                                            onAnswerChangeFTB={(ans) => this.setState({ a1_6FTB: ans })} />
+                                        <RadioQuestion name="q1_7"
+                                            question="Employment status"
+                                            options={[
+                                                { text: "Working now" },
+                                                { text: "Looking for work" },
+                                                { text: "Sick leave or maternity leave" },
+                                                { text: "Disabled due to pain, permenantly or temporarily" },
+                                                { text: "Disabled for reasons other than back pain" },
+                                                { text: "Student" },
+                                                { text: "Temporarily laid off" },
+                                                { text: "Retired" },
+                                                { text: "Keeping the house" },
+                                                { text: "Other, specify", fillIn: true },
+                                                { text: "Unknown" },
+                                            ]}
+                                            onAnswerChange={(ans) => this.setState({ a1_6: ans })}
+                                            onAnswerChangeFTB={(ans) => this.setState({ a1_6FTB: ans })} />
 
-                                                    <input
-                                                        type="text"
-                                                        name="q1_3"
-                                                        value={this.state.q1_3}
-                                                        onChange={this.handleChange}
-                                                        id="age"
-                                                        className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300"
-                                                        placeholder="Age"
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <RadioQuestion name="q1_8"
+                                            question="In general, would you say your health is...? (Check one box below)"
+                                            options={[
+                                                { text: "Excellent" },
+                                                { text: "Very good" },
+                                                { text: "Good" },
+                                                { text: "Fair" },
+                                                { text: "Poor" }
+                                            ]}
+                                            onAnswerChange={(ans) => this.setState({ a1_8: ans })}
+                                            onAnswerChangeFTB={(ans) => this.setState({ a1_8FTB: ans })} />
 
-                                        <div>
-                                            <fieldset>
-                                                <div>
-                                                    <legend className="block text-md font-medium text-gray-700">Q1.4 Do you consider yourself to be Hispanic of Latinx?</legend>
-                                                    <p className="text-sm text-gray-500">Check one box</p>
-                                                </div>
-                                                <div className="mt-4 space-y-4">
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="f"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="f" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            No
-                                                        </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="m"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="m" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Yes
-                                                        </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="nb"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="nb" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Unknown
-                                                        </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="sd"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="sd" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Prefer not to answer
-                                                        </label>
+                                        <RadioQuestion name="q1_10"
+                                            question="How often did you visit an art museum last year?"
+                                            options={[
+                                                { text: "None" },
+                                                { text: "1 times" },
+                                                { text: "2 times" },
+                                                { text: "3 times" },
+                                                { text: "More than 3 times" },
 
-                                                    </div>
-                                                </div>
-                                            </fieldset>
-                                        </div>
+                                            ]}
+                                            onAnswerChange={(ans) => this.setState({ a1_10: ans })}
+                                            onAnswerChangeFTB={(ans) => this.setState({ a1_10FTB: ans })} />
+                                        <RadioQuestion name="q2_3"
+                                            question="Has your health care provider diagnosed your pain condition? (Check one box)"
+                                            options={[
+                                                { text: "No" },
+                                                { text: "Yes" },
 
-                                        <div>
-                                            <fieldset>
-                                                <div>
-                                                    <legend className="block text-md font-medium text-gray-700">Q1.4 What race or races do you consider yourself to be?</legend>
-                                                    <p className="text-sm text-gray-500">Check all groups that apply to you</p>
-                                                </div>
-                                                <div className="mt-4 space-y-4">
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="f"
-                                                            name="gender"
-                                                            type="checkbox"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="f" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            White
-                                                        </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="m"
-                                                            name="gender"
-                                                            type="checkbox"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="m" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Black or African American
-                                                        </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="nb"
-                                                            name="gender"
-                                                            type="checkbox"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="nb" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            American Indian or Alaska Native
-                                                        </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="sd"
-                                                            name="gender"
-                                                            type="checkbox"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="sd" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Asian
-                                                        </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="sd"
-                                                            name="gender"
-                                                            type="checkbox"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="sd" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Native Hawaiian or Pacific Islander
-                                                        </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="sd"
-                                                            name="gender"
-                                                            type="checkbox"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="sd" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Unknown
-                                                        </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="sd"
-                                                            name="gender"
-                                                            type="checkbox"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="sd" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Prefer not to answer
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </fieldset>
-                                        </div>
+                                            ]}
+                                            onAnswerChange={(ans) => this.setState({ a2_3: ans })}
+                                            onAnswerChangeFTB={(ans) => this.setState({ a2_3FTB: ans })} />
+                                        {this.state.a2_3 === 'Yes' &&
+                                            <FillinQuestion
+                                                name="q2_4"
+                                                question="If yes, what is the diagnosis or diagnoses for your pain condition or conditions? (write in your answer)"
+                                                placeholder=""
+                                                onAnswerChange={(ans) => this.setState({ a2_4: ans })} />
+                                        }
 
-                                        <div>
-                                            <fieldset>
-                                                <div>
-                                                    <legend className="block text-md font-medium text-gray-700">Q1.6 Education level (Select the highest level attained)</legend>
-                                                </div>
-                                                <div className="mt-4 space-y-4">
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="f"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="f" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            No high school diploma
-                                                        </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="m"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="m" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            High school graduate or GED
-                                                        </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="nb"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="nb" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Some college, no degree
-                                                        </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="sd"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="sd" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Occupational/technical/vocational program
-                                                        </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="sd"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="sd" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Bachelor&apos;s degree
-                                                        </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="sd"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="sd" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Master&apos;s degree (e.g. M.A., M.S., M.B.A)
-                                                        </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="sd"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="sd" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Professional school degree (e.g. M.D., D.D.S., D.V.M., J.D.)
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </fieldset>
-                                        </div>
 
-                                        <div>
-                                            <fieldset>
-                                                <div>
-                                                    <legend className="block text-md font-medium text-gray-700">Q1.7 Employment Status</legend>
-                                                </div>
-                                                <div className="mt-4 space-y-4">
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="f"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="f" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Working now
-                                                        </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="m"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="m" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Looking for work, unemployed
-                                                        </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="nb"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="nb" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Sick leave or maternity leave
-                                                        </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="sd"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="sd" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Disabled due to pain, permanently or temporarily
-                                                        </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="sd"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="sd" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Disabled for reasons other than back pain
-                                                        </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="sd"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="sd" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Student                                                    </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="sd"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="sd" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Temporarily laid off
-                                                        </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="sd"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="sd" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Retired                                                    </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="sd"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="sd" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Keeping house
-                                                        </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="sd"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="sd" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Other, specify:
-                                                        </label>
-                                                        <input
-                                                            type="text"
-                                                            name="self-d"
-                                                            id="self-d"
-                                                            className="mx-2 focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300"
-                                                            placeholder=" "
-                                                        />
-
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="sd"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="sd" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Unknown                                                    </label>
-                                                    </div>
-                                                </div>
-                                            </fieldset>
-                                        </div>
-
-                                        <div>
-                                            <fieldset>
-                                                <div>
-                                                    <legend className="block text-md font-medium text-gray-700">Q1.8 In general, would you say your health is ... ? (check one box)</legend>
-                                                </div>
-                                                <div className="mt-4 space-y-4">
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="f"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="f" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Excellent                                                    </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="m"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="m" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Very Good                                                    </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="nb"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="nb" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Good                                                    </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="sd"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="sd" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Fair                                                    </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="sd"
-                                                            name="gender"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="sd" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Poor
-                                                        </label>
-                                                    </div>
-
-                                                </div>
-                                            </fieldset>
-                                        </div>
-
-                                        <div>
-                                            <fieldset>
-                                                <div>
-                                                    <legend className="block text-md font-medium text-gray-700">Q1.10 How often did you visit an art museum last year?</legend>
-                                                </div>
-                                                <div className="mt-4 space-y-4">
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="n0"
-                                                            name="museum-visits"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="f" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            None                                                  </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="n1"
-                                                            name="museum-visits"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="m" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            1 time</label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="n2"
-                                                            name="museum-visits"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="nb" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            2 times           </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="n3"
-                                                            name="museum-visits"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="sd" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            3 times       </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="n3p"
-                                                            name="museum-visits"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="sd" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            More than 3 times
-                                                        </label>
-                                                    </div>
-                                                    <div className="hidden sm:block" aria-hidden="true">
-                                                        <div className="py-5">
-                                                            <div className="border-t border-gray-200" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </fieldset>
-                                        </div>
-                                        <div>
-                                            <fieldset>
-                                                <div>
-                                                    <legend className="block text-md font-medium text-gray-700">Q2.3 Has your health care provider diagnosed your pain condition? (check one box)
-                                                    </legend>
-                                                </div>
-                                                <div className="mt-4 space-y-4">
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="n"
-                                                            name="health"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="f" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            No                                                    </label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            id="y"
-                                                            name="health"
-                                                            type="radio"
-                                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                                        />
-                                                        <label htmlFor="m" className="ml-3 block text-sm font-medium text-gray-700">
-                                                            Yes                                                    </label>
-                                                    </div>
-
-                                                </div>
-                                            </fieldset>
-                                        </div>
-
-                                        <p className='p-2 text-sm bg-red-500'>IF you answered “NO” THEN skip To Q3.1 – What is your pain intensity right now?</p>
-
-                                        <div>
-                                            <label htmlFor="diagnosis" className="block text-sm font-medium text-gray-700">
-                                                Q2.4 If yes, what is the diagnosis or diagnoses for your pain condition or conditions? (write in your answer)
-                                            </label>
-
-                                            <div className="mt-1">
-                                                <textarea
-                                                    id="diagnosis"
-                                                    name="diagnosis"
-                                                    rows={1}
-                                                    className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
-                                                    placeholder=" "
-                                                    defaultValue={''}
-                                                />
-                                            </div>
-                                        </div>
-                                        <p className='p-2 text-sm bg-red-700'>TODO FOR JOSH: BASELINE QUESTIONS ARE INCOMPLETE </p>
                                     </div>
 
                                 </div>
 
-                                <input type="submit" value="SUBMIT" className='inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500' />
+                                <input type="submit" value="SUBMIT" className='my-2 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500' />
                             </form>
                         </div>
                     </div>

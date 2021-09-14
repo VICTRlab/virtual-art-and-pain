@@ -1,20 +1,34 @@
-import BaselineForm from "./BaselineForm";
-import SubmitSurveyButton from "./SubmitSurveyButon";
 import { useState } from 'react'
+import BaselineForm from "./BaselineForm";
+import OutcomeForm from "./OutcomeForm";
 import Museum from "./Museum";
+import SocialConnectPrime from './SocialConnectPrime';
+import Tutorial from './Tutorial';
+import BlankMuseum from './BlankMuseum';
 export default function App() {
 
-    const [submit, setSurveySubmitted] = useState(false);
+    const [finishBaseline, setFinishBaseline] = useState(false);
+    const [finishOutcome1, setFinishOutcome1] = useState(false);
+    const [finishSocialConn, setFinishSocialConn] = useState(false);
+    const [finishTutorial, setFinishTutorial] = useState(false);
+    const [finishMuseum1, setFinishMuseum1] = useState(false);
+    const [finishOutcome2, setFinishOutcome2] = useState(false);
+    const [finishMuseum2, setFinishMuseum2] = useState(false);
+    const [finishOutcome3, setFinishOutcome3] = useState(false);
 
     function finishBaseLine() {
-        setSurveySubmitted(true);
+        setFinishBaseline(true);
     }
     function makeFullScreen() {
         //setFullScreen(true);
     }
     return (
-        <div className='md:grid md:grid-cols-3 md:gap-6 bg-gray-100 w-full py-5'>
-            {submit === true && (
+        <div>
+            {finishBaseline === false && (<BaselineForm submitSurvey={finishBaseLine} />)}
+            {finishBaseline === true && finishOutcome1 === false && (<OutcomeForm submitSurvey={() => { setFinishOutcome1(true) }} />)}
+            {finishOutcome1 === true && finishSocialConn === false && (<SocialConnectPrime submitSurvey={() => { setFinishSocialConn(true) }} />)}
+            {finishSocialConn === true && finishTutorial === false && (<Tutorial />)}
+            {finishTutorial === true && finishMuseum1 === false && (//M1
                 <>
                     <div className='md:col-span-2 flex items-center justify-center h-screen'>
                         <Museum makeFullScreen={makeFullScreen} />
@@ -36,13 +50,9 @@ export default function App() {
 
                 </>
             )}
-            {submit === false && (
-                <div className='md:col-span-3 md:w-1/2 mx-auto'>
-                    <BaselineForm />
-                    <SubmitSurveyButton submitSurvey={finishBaseLine} />
-                </div>
-            )}
-
+            {finishMuseum1 === true && finishOutcome2 === false && <OutcomeForm submitSurvey={() => { setFinishOutcome2(true) }} />}
+            {finishOutcome2 === true && finishMuseum2 === false && <BlankMuseum />}
+            {finishMuseum2 === true && finishOutcome3 === false && <OutcomeForm submitSurvey={() => { setFinishOutcome3(true) }} />}
         </div>
     );
 }
