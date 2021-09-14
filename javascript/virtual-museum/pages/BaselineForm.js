@@ -51,7 +51,7 @@ class BaselineForm extends Component {
                                 <div className="shadow sm:rounded-md sm:overflow-hidden">
 
                                     <div className="px-4 py-5 bg-white space-y-6 sm:p-6">
-                                        <h1 className="block text-lg font-medium text-gray-700">Survey #1</h1>
+                                        <h1 className="block text-lg font-medium text-gray-700">Demographics</h1>
                                         <div className="hidden sm:block" aria-hidden="true">
                                             <div className="py-2">
                                                 <div className="border-t border-gray-300" />

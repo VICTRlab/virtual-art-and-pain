@@ -29,14 +29,15 @@ export default class RadioGrid extends Component {
                         </legend>
                         <p className="my-2 text-sm text-gray-500">{this.props.moreText}</p>
                     </div>
-                    {options.map((option) => (
+                    {this.props.options && options.map((option) => (
                         <div className="inline-block text-center mx-1" key={option.text}>
                             <p>{option.text}</p>
-                        </div>
-                    ))}
+                        </div>))
+                    }
+
                 </div>
 
-                {subQuestions.map((subQuestion) => (
+                {this.props.subQuestions && subQuestions.map((subQuestion) => (
                     <div key={subQuestion.text}>
                         <fieldset>
                             <div className="border grid grid-cols-10 gap-1 bg-gray-50 w-full py-5">
@@ -46,7 +47,7 @@ export default class RadioGrid extends Component {
                                     </legend>
                                     <p className="my-2 text-sm text-gray-500">{this.props.moreText}</p>
                                 </div>
-                                {options.map((option) => (
+                                {this.props.options && options.map((option) => (
                                     <div className="inline-block text-center mx-1" key={subQuestion.num}>
                                         <input
                                             name={subQuestion.num}
