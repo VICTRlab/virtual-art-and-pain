@@ -37,27 +37,30 @@ export default class RadioGrid extends Component {
                 </div>
 
                 {subQuestions.map((subQuestion) => (
-                    <fieldset>
-                        <div className="border grid grid-cols-10 gap-1 bg-gray-50 w-full py-5">
-                            <div className="col-span-4">
-                                <legend className="block text-md font-medium text-gray-700">
-                                    {subQuestion.text}
-                                </legend>
-                                <p className="my-2 text-sm text-gray-500">{this.props.moreText}</p>
-                            </div>
-                            {options.map((option) => (
-                                <div className="inline-block text-center mx-1" key={subQuestion.num}>
-                                    <input
-                                        name={subQuestion.num}
-                                        type="radio"
-                                        className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                        onChange={this.handleChange}
-                                        value={option.text}
-                                    />
+                    <div key={subQuestion.text}>
+                        <fieldset>
+                            <div className="border grid grid-cols-10 gap-1 bg-gray-50 w-full py-5">
+                                <div className="col-span-4">
+                                    <legend className="block text-md font-medium text-gray-700">
+                                        {subQuestion.text}
+                                    </legend>
+                                    <p className="my-2 text-sm text-gray-500">{this.props.moreText}</p>
                                 </div>
-                            ))}
-                        </div>
-                    </fieldset>
+                                {options.map((option) => (
+                                    <div className="inline-block text-center mx-1" key={subQuestion.num}>
+                                        <input
+                                            name={subQuestion.num}
+                                            type="radio"
+                                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                                            onChange={this.handleChange}
+                                            value={option.text}
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        </fieldset>
+                    </div>
+
                 ))}
 
 
