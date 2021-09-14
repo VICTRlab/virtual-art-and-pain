@@ -1,4 +1,5 @@
 import BaselineForm from "./BaselineForm";
+import OutcomeForm from "./OutcomeForm";
 import SubmitSurveyButton from "./SubmitSurveyButon";
 import { useState } from 'react'
 import Museum from "./Museum";
@@ -14,6 +15,12 @@ export default function App() {
     }
     return (
         <div className='md:grid md:grid-cols-3 md:gap-6 bg-gray-100 w-full py-5'>
+            {submit === false && (
+                <div className='md:col-span-3 md:w-2/3 mx-auto'>
+                    <BaselineForm submitSurvey={finishBaseLine} />
+
+                </div>
+            )}
             {submit === true && (
                 <>
                     <div className='md:col-span-2 flex items-center justify-center h-screen'>
@@ -36,12 +43,7 @@ export default function App() {
 
                 </>
             )}
-            {submit === false && (
-                <div className='md:col-span-3 md:w-1/2 mx-auto'>
-                    <BaselineForm />
-                    <SubmitSurveyButton submitSurvey={finishBaseLine} />
-                </div>
-            )}
+
 
         </div>
     );

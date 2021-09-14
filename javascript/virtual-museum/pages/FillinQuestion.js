@@ -9,6 +9,7 @@ export default class FillinQuestion extends Component {
     handleChange(e) {
         this.props.onAnswerChange(e.target.value);
     }
+
     render() {
         return (
             <div className="grid grid-cols-3 gap-6" >
