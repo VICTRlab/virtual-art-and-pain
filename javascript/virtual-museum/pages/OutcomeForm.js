@@ -28,7 +28,7 @@ class OutcomeForm extends Component {
     }
 
     handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.a1_1);
+        //alert('A name was submitted: ' + this.state.a1_1);
         this.writeData(this.state.a1_1);
         console.log(this.state);
         event.preventDefault();

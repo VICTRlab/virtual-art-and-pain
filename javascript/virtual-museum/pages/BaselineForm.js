@@ -29,7 +29,7 @@ class BaselineForm extends Component {
     }
 
     handleSubmit(event) {
-        alert('Form submitted: ' + TEMP_ID);
+        //alert('Form submitted: ' + TEMP_ID);
         this.writeData(TEMP_ID);
         event.preventDefault();
         this.props.submitSurvey();
