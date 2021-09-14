@@ -1,8 +1,10 @@
+import { useState } from 'react'
 import BaselineForm from "./BaselineForm";
 import OutcomeForm from "./OutcomeForm";
-import SubmitSurveyButton from "./SubmitSurveyButon";
-import { useState } from 'react'
 import Museum from "./Museum";
+import SocialConnectPrime from './SocialConnectPrime';
+import Tutorial from './Tutorial';
+import BlankMuseum from './BlankMuseum';
 export default function App() {
 
     const [finishBaseline, setFinishBaseline] = useState(false);
@@ -21,16 +23,11 @@ export default function App() {
         //setFullScreen(true);
     }
     return (
-        <div className='md:grid md:grid-cols-3 md:gap-6 bg-gray-100 w-full py-5'>
-            {finishBaseline === false && (
-                <div className='md:col-span-3 md:w-2/3 mx-auto'>
-                    <BaselineForm submitSurvey={finishBaseLine} />
-
-                </div>
-            )}
-            {finishBaseline === true && finishOutcome1 === false && <OutcomeForm />}
-            {finishOutcome1 === true && finishSocialConn === false && <SocialConnectPrime />}
-            {finishSocialConn === true && finishTutorial === false && <Tutorial />}
+        <div>
+            {finishBaseline === false && (<BaselineForm submitSurvey={finishBaseLine} />)}
+            {finishBaseline === true && finishOutcome1 === false && (<OutcomeForm submitSurvey={() => { setFinishOutcome1(true) }} />)}
+            {finishOutcome1 === true && finishSocialConn === false && (<SocialConnectPrime submitSurvey={() => { setFinishSocialConn(true) }} />)}
+            {finishSocialConn === true && finishTutorial === false && (<Tutorial />)}
             {finishTutorial === true && finishMuseum1 === false && (//M1
                 <>
                     <div className='md:col-span-2 flex items-center justify-center h-screen'>
@@ -53,9 +50,9 @@ export default function App() {
 
                 </>
             )}
-            {finishMuseum1 === true && finishOutcome2 === false && <OutcomeForm />}
-            {finishOutcome2 === true && finishMuseum2 === false && <Museum />}
-            {finishMuseum2 === true && finishOutcome3 === false && <OutcomeForm />}
+            {finishMuseum1 === true && finishOutcome2 === false && <OutcomeForm submitSurvey={() => { setFinishOutcome2(true) }} />}
+            {finishOutcome2 === true && finishMuseum2 === false && <BlankMuseum />}
+            {finishMuseum2 === true && finishOutcome3 === false && <OutcomeForm submitSurvey={() => { setFinishOutcome3(true) }} />}
         </div>
     );
 }

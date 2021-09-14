@@ -41,7 +41,7 @@ class BaselineForm extends Component {
     render() {
 
         return (
-            <div>
+            <div className="md:col-span-3 md:w-2/3 mx-auto">
 
                 <div>
                     <div className="md:grid md:grid-cols-2 md:gap-6">
@@ -58,7 +58,7 @@ class BaselineForm extends Component {
                                             </div>
                                         </div>
 
-                                        <RadioGroup
+                                        <RadioQuestion
                                             name="q1_2"
                                             question="To which gender do you most identify?"
                                             options={[{ text: "Female" }, { text: "Male" }, { text: "Non-binary/third gender" }, { text: "Prefer to self describe: ", fillIn: true }, { text: "Prefer not to answer" }]}
