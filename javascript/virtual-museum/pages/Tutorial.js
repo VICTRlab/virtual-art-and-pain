@@ -33,7 +33,7 @@ export default function Tutorial(props) {
             <Unity
                 unityContext={unityContext}
                 matchWebGLToCanvasSize={false}
-                style={{ width: "100%", height: "480px", visibility: isLoaded ? "visible" : "hidden" }}
+                style={{ width: "720px", height: "480px", visibility: isLoaded ? "visible" : "hidden" }}
 
             />
             <button
