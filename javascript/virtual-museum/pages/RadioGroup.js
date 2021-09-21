@@ -16,7 +16,7 @@ export default class RadioGroup extends Component {
     render() {
         const options = this.props.options;
         return (
-            <div>
+            <div className="border border-purple-300 rounded-md p-2">
                 <fieldset>
                     <div>
                         <legend className="block text-md font-medium text-gray-700">
@@ -51,6 +51,7 @@ export default class RadioGroup extends Component {
 
 
                 </fieldset>
+
             </div>
         );
     }

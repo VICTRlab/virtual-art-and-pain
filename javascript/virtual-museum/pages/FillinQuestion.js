@@ -12,7 +12,7 @@ export default class FillinQuestion extends Component {
 
     render() {
         return (
-            <div className="grid grid-cols-3 gap-6" >
+            <div className="grid grid-cols-3 gap-6 border border-purple-300 rounded-md p-2">
                 <div className="col-span-3 sm:col-span-2">
                     <label htmlFor="q1_1" className="block text-md font-medium text-gray-700">
                         {this.props.question}
