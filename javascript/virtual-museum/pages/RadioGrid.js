@@ -31,7 +31,7 @@ export default class RadioGrid extends Component {
                     </div>
                     {this.props.options && options.map((option) => (
                         <div className="inline-block text-center mx-1" key={option.text}>
-                            {option.text.split('\n').map(str => <p>{str}</p>)}
+                            {option.text.split('\n').map((str,index) => <p key={index}>{str}</p>)}
                         </div>))
                     }
 
