@@ -1,4 +1,4 @@
-import {useState, useEffect, useCallback} from react
+import {useState, useEffect, useCallback} from 'react'
 
 export default function LimitedWordTextarea({ rows, cols, value, limit }) {
     const [{ content, wordCount }, setContent] = useState({
