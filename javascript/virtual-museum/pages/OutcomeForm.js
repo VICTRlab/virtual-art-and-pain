@@ -45,7 +45,11 @@ class OutcomeForm extends Component {
                 <div className="md:col-span-3 md:w-2/3 mx-auto">
                     <div className="md:grid md:grid-cols-2 md:gap-6">
                         <div className="mt-5 md:mt-0 md:col-span-2">
-                            <form onSubmit={this.handleSubmit} action="#" method="POST">
+                            <form
+                                onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }}
+                                onSubmit={this.handleSubmit}
+                                action="#"
+                                method="POST">
                                 <div className="shadow sm:rounded-md sm:overflow-hidden">
 
                                     <div className="px-4 py-5 bg-white space-y-6 sm:p-6">

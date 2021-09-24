@@ -5,6 +5,7 @@ import FillinQuestion from "./FillinQuestion";
 import RadioQuestion from "./RadioQuestion";
 import RadioGroup from "./RadioGroup";
 import RadioGrid from "./RadioGrid";
+import TextAreaWithWordLimit from "./TextAreaWithWordLimit";
 const TEMP_ID = "AABBCC"
 class BaselineForm extends Component {
     constructor(props) {
@@ -32,6 +33,7 @@ class BaselineForm extends Component {
         //alert('Form submitted: ' + TEMP_ID);
         this.writeData(TEMP_ID);
         event.preventDefault();
+
         this.props.submitSurvey();
     }
     writeData(userID) {
@@ -42,12 +44,15 @@ class BaselineForm extends Component {
 
         return (
             <div className="my-5 md:col-span-3 md:w-2/3 mx-auto">
-
                 <div>
                     <div className="md:grid md:grid-cols-2 md:gap-6">
 
                         <div className="mt-5 md:mt-0 md:col-span-2">
-                            <form onSubmit={this.handleSubmit} action="#" method="POST">
+                            <form
+                                onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }}
+                                onSubmit={this.handleSubmit}
+                                action="#"
+                                method="POST">
                                 <div className="shadow md:rounded-md sm:overflow-hidden">
 
                                     <div className="px-4 py-5 bg-white space-y-6 sm:p-6">
