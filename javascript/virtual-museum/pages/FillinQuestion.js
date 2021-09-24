@@ -17,6 +17,7 @@ export default class FillinQuestion extends Component {
                     <label htmlFor="q1_1" className="block text-md font-medium text-gray-700">
                         {this.props.question}
                     </label>
+                    <p className="my-2 text-sm text-gray-500">{this.props.moreText}</p>
                     <div className="mt-1 ">
                         <input
                             type="text"
