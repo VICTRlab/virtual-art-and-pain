@@ -12,16 +12,21 @@ const unityContext = new UnityContext({
 export default function Museum(props) {
 
     const [isLoaded, setIsLoaded] = useState(false);
+    const [progression, setProgression] = useState(0);
+
     useEffect(function () {
         //unityContext.setFullscreen(true);
         unityContext.on("canvas", function (canvas) {
             canvas.width = 1080;
             canvas.height = 720;
         });
-        unityContext.on("loaded", function () {
+        unityContext.on("progress", function (progression) {
+            setProgression(progression);
+        });
+        /*unityContext.on("loaded", function () {
             setIsLoaded(true);
             unityContext.setFullscreen(true);
-        });
+        });*/
     }, []);
     function makeFullScreen() {
         unityContext.setFullscreen(true);
@@ -30,6 +35,7 @@ export default function Museum(props) {
     return (
         <div className='flex flex-col'>
 
+            <p>Loading {progression * 100} ... </p>
             <Unity
                 unityContext={unityContext}
                 matchWebGLToCanvasSize={false}
