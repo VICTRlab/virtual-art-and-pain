@@ -12,13 +12,25 @@ public class PlayerManager : MonoBehaviour
     public Toggle checkBoxA;
     public Toggle checkBoxS;
     public Toggle checkBoxD;
+
     public Toggle checkBoxLookLeft;
     public GameObject checkBoxLookLeftObj;
+    
     public Toggle checkBoxLookRight;
     public GameObject checkBoxLookRightObj;
+
+    public Toggle checkBoxPOISquare;
+    public GameObject checkBoxPOISquareObj;
+    public Toggle checkBoxPOISphere;
+    public GameObject checkBoxPOISphereObj;
+    public Toggle checkBoxExit;
+    public GameObject checkBoxExitObj;
     public List<GameObject> checkList1;
     public List<Toggle> checkList2;
      public int listNum;
+
+     public GameObject POISqObj;
+     public GameObject POISphObj;
     void Start(){
         listNum = 0;
         checkBoxWO = GameObject.Find("Item1");
@@ -44,6 +56,23 @@ public class PlayerManager : MonoBehaviour
         checkBoxLookRightObj = GameObject.Find("Item6");
         checkBoxLookRightObj.SetActive(false);
         checkBoxLookRight = checkBoxLookRightObj.GetComponent<Toggle>();
+
+        POISqObj = GameObject.Find("POISquare");
+        POISphObj = GameObject.Find("POISphere");
+
+        checkBoxPOISquareObj = GameObject.Find("Item7");
+        checkBoxPOISquareObj.SetActive(false);
+        checkBoxPOISquare = checkBoxPOISquareObj.GetComponent<Toggle>();
+        
+        checkBoxPOISphereObj = GameObject.Find("Item8");
+        checkBoxPOISphereObj.SetActive(false);
+        checkBoxPOISphere = checkBoxPOISphereObj.GetComponent<Toggle>();
+
+        checkBoxExitObj = GameObject.Find("Item9");
+        checkBoxExitObj.SetActive(false);
+        checkBoxExit = checkBoxExitObj.GetComponent<Toggle>();
+
+        
     }
     void Update(){
         if(listNum==0 && checkBoxW.isOn && checkBoxA.isOn && checkBoxS.isOn && checkBoxD.isOn) {
@@ -62,39 +91,81 @@ public class PlayerManager : MonoBehaviour
 
             RaycastHit hit;
             var ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width/2f,Screen.height/2f,0f));
+            if(checkBoxLookLeft.isOn && checkBoxLookRight.isOn) {
+                listNum = 2;
+                checkBoxLookLeftObj.SetActive(false);
+                checkBoxLookRightObj.SetActive(false);
+
+                checkBoxPOISquareObj.SetActive(true);
+                checkBoxPOISphereObj.SetActive(true);
+            }
             if (Physics.Raycast(ray, out hit))
             {
               var obj = hit.collider.gameObject;
+              
               if(obj.name.Equals("LeftWall")) {
                   checkBoxLookLeft.isOn = true;
-                  Debug.Log("HIT LEFT WALL");
+                  //Debug.Log("HIT LEFT WALL");
               }
               if(obj.name.Equals("RightWall")) {
                   checkBoxLookRight.isOn = true;
-                  Debug.Log("HIT Right WALL");
+                  //Debug.Log("HIT Right WALL");
               }
-              //Debug.Log($"looking at {obj.name}", this);    
-              //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
-              //Debug.Log("Did Hit");
+         
             
            }
-         else
-         {
-            //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.white);
-            //Debug.Log("Did not Hit");
-          }
-            //Debug.Log("222 HIT");
-            /*var ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width/2f,Screen.height/2f,0f));
+        }
+        if(listNum==2) {
+            int layerMask = 1 << 8;
+            layerMask = ~layerMask;
+
             RaycastHit hit;
-            
-            if(Physics.Raycast(ray,out hit)){
-                Debug.Log("hit.transform");
-                var selection = hit.transform;
-                var selectionRenderer = selection.GetComponent<Renderer>().ToString();
-                if(selectionRenderer.Equals("LeftWall")) {
-                    Debug.Log("LEFTWALL HIT");
-                    //selectedObject = GameObject.Find(CastingToObject.selectedObject);
-            }*/
+            var ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width/2f,Screen.height/2f,0f));
+            if(checkBoxPOISquare.isOn && checkBoxPOISphere.isOn) {
+                listNum = 3;
+
+                checkBoxPOISquareObj.SetActive(false);
+                checkBoxPOISphereObj.SetActive(false);
+
+                checkBoxExitObj.SetActive(true);
+            }
+            if (Physics.Raycast(ray, out hit))
+            {
+              var obj = hit.collider.gameObject;
+              float dist = hit.distance;
+              Debug.Log(dist);
+              if(dist < 15 && obj.name.Equals("POISquare")) {
+                  checkBoxPOISquare.isOn = true;
+                  //Debug.Log("HIT LEFT WALL");
+              }
+              if(dist < 15 && obj.name.Equals("POISphere")) {
+                  checkBoxPOISphere.isOn = true;
+                  //Debug.Log("HIT Right WALL");
+              }
+            }
+        }
+        if(listNum==3){
+            int layerMask = 1 << 8;
+            layerMask = ~layerMask;
+
+            RaycastHit hit;
+            var ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width/2f,Screen.height/2f,0f));
+            if(checkBoxPOISquare.isOn && checkBoxPOISphere.isOn) {
+                listNum = 3;
+            }
+            if (Physics.Raycast(ray, out hit))
+            {
+              var obj = hit.collider.gameObject;
+              float dist = hit.distance;
+              Debug.Log(dist);
+              if(dist < 7 && obj.name.Equals("Exit")) {
+                  //checkBoxPOISquare.isOn = true;
+                  Debug.Log("EXIT REACHED");
+                  checkBoxExit.isOn = true;
+                  Application.Quit();
+              }
+              
+            }
         }
         
         if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
