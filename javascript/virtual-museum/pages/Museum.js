@@ -17,8 +17,8 @@ export default function Museum(props) {
     useEffect(function () {
         //unityContext.setFullscreen(true);
         unityContext.on("canvas", function (canvas) {
-            canvas.width = 720;
-            canvas.height = 480;
+            canvas.width = 1080;
+            canvas.height = 720;
         });
         unityContext.on("progress", function (progression) {
             setProgression(progression);
@@ -39,7 +39,7 @@ export default function Museum(props) {
             <Unity
                 unityContext={unityContext}
                 matchWebGLToCanvasSize={false}
-                style={{ width: "100%", height: "480px", visibility: isLoaded ? "visible" : "hidden" }}
+                style={{ width: "100%", visibility: isLoaded ? "visible" : "hidden" }}
 
             />
             <button

@@ -29,8 +29,8 @@ export default function App() {
             {finishOutcome1 === true && finishSocialConn === false && (<SocialConnectPrime submitSurvey={() => { setFinishSocialConn(true) }} />)}
             {finishSocialConn === true && finishTutorial === false && (
                 <>
-                    <div className='col-span-2 flex items-center justify-center h-screen'>
-                        <Museum makeFullScreen={makeFullScreen} />
+                    <div className=''>
+                        <Tutorial makeFullScreen={makeFullScreen} />
                     </div>
 
 

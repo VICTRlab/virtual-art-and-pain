@@ -1,13 +1,18 @@
 import Unity, { UnityContext } from "react-unity-webgl";
 import { useState, useEffect } from "react";
 
-const unityContext = new UnityContext({
-    loaderUrl: "Tutorial/Build/public.loader.js",
-    dataUrl: "Tutorial/Build/public.data",
-    frameworkUrl: "Tutorial/Build/public.framework.js",
-    codeUrl: "Tutorial/Build/public.wasm",
+const unityContext2 = new UnityContext({
+    loaderUrl: "Tutorial/Build/Tutorial.loader.js",
+    dataUrl: "Tutorial/Build/Tutorial.data",
+    frameworkUrl: "Tutorial/Build/Tutorial.framework.js",
+    codeUrl: "Tutorial/Build/Tutorial.wasm",
 });
-
+const unityContext = new UnityContext({
+    loaderUrl: "Build/public.loader.js",
+    dataUrl: "Build/public.data",
+    frameworkUrl: "Build/public.framework.js",
+    codeUrl: "Build/public.wasm",
+});
 
 export default function Tutorial(props) {
 
@@ -15,8 +20,8 @@ export default function Tutorial(props) {
     useEffect(function () {
         //unityContext.setFullscreen(true);
         unityContext.on("canvas", function (canvas) {
-            canvas.width = 1080;
-            canvas.height = 720;
+            //canvas.width = 1080;
+            //canvas.height = 720;
         });
         unityContext.on("loaded", function () {
             setIsLoaded(true);
@@ -32,8 +37,8 @@ export default function Tutorial(props) {
 
             <Unity
                 unityContext={unityContext}
-                matchWebGLToCanvasSize={false}
-                style={{ width: "720px", height: "480px", visibility: isLoaded ? "visible" : "hidden" }}
+                matchWebGLToCanvasSize={true}
+                style={{ width: "100%", visibility: isLoaded ? "visible" : "hidden" }}
 
             />
             <button
