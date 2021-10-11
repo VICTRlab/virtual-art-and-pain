@@ -1,13 +1,13 @@
 import Unity, { UnityContext } from "react-unity-webgl";
 import { useState, useEffect } from "react";
 import Loading from "./Loading";
-const unityContext = new UnityContext({
+const unityContext2 = new UnityContext({
     loaderUrl: "Tutorial/Build/Tutorial.loader.js",
     dataUrl: "Tutorial/Build/Tutorial.data",
     frameworkUrl: "Tutorial/Build/Tutorial.framework.js",
     codeUrl: "Tutorial/Build/Tutorial.wasm",
 });
-const unityContext2 = new UnityContext({
+const unityContext = new UnityContext({
     loaderUrl: "Build/Build/Build.loader.js",
     dataUrl: "Build/Build/Build.data",
     frameworkUrl: "Build/Build/Build.framework.js",
