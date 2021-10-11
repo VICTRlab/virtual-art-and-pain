@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 public class PlayerManager : MonoBehaviour
 {
+    public GameObject welcomeTextObj;
+    public GameObject completeTextObj;
     public GameObject checkBoxWO;
     public GameObject checkBoxAO;
     public GameObject checkBoxSO;
@@ -31,8 +33,18 @@ public class PlayerManager : MonoBehaviour
 
      public GameObject POISqObj;
      public GameObject POISphObj;
+
+     private float timer = 0.0f;
+     private float waitTime = 5.0f;
+     public bool startTimer = true;
+
     void Start(){
-        listNum = 0;
+        listNum = -1;
+        welcomeTextObj = GameObject.Find("WelcomeText");
+        completeTextObj = GameObject.Find("CompleteText");
+        completeTextObj.SetActive(false);
+        //welcomeText = welcomeTextObj.GetComponent<Text>();
+
         checkBoxWO = GameObject.Find("Item1");
         checkBoxAO = GameObject.Find("Item2");
         checkBoxSO = GameObject.Find("Item3");
@@ -48,7 +60,9 @@ public class PlayerManager : MonoBehaviour
         checkList1.Add(checkBoxAO);
         checkList1.Add(checkBoxSO);
         checkList1.Add(checkBoxDO);
-
+        foreach (GameObject item in checkList1) {
+            item.SetActive(false);
+        }
         checkBoxLookLeftObj = GameObject.Find("Item5");
         checkBoxLookLeftObj.SetActive(false);
         checkBoxLookLeft = checkBoxLookLeftObj.GetComponent<Toggle>();
@@ -75,6 +89,15 @@ public class PlayerManager : MonoBehaviour
         
     }
     void Update(){
+        if(listNum==-1) {
+            if (Input.GetKeyDown(KeyCode.Mouse0)) {
+                listNum=0;
+                welcomeTextObj.SetActive(false);
+                foreach (GameObject item in checkList1) {
+                    item.SetActive(true);
+                }
+            }
+        }
         if(listNum==0 && checkBoxW.isOn && checkBoxA.isOn && checkBoxS.isOn && checkBoxD.isOn) {
             listNum=1;
             foreach (GameObject item in checkList1)
@@ -127,7 +150,7 @@ public class PlayerManager : MonoBehaviour
                 checkBoxPOISquareObj.SetActive(false);
                 checkBoxPOISphereObj.SetActive(false);
 
-                checkBoxExitObj.SetActive(true);
+                completeTextObj.SetActive(true);
             }
             if (Physics.Raycast(ray, out hit))
             {
@@ -145,19 +168,28 @@ public class PlayerManager : MonoBehaviour
             }
         }
         if(listNum==3){
+            if(startTimer) {
+                timer=0;
+                startTimer=false;
+            } else {
+                timer+=Time.deltaTime;
+            }
+            
+            if(timer>waitTime) {
+                Debug.Log("Timer REACHED");
+                Application.Quit();
+            }
             int layerMask = 1 << 8;
             layerMask = ~layerMask;
 
             RaycastHit hit;
             var ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width/2f,Screen.height/2f,0f));
-            if(checkBoxPOISquare.isOn && checkBoxPOISphere.isOn) {
-                listNum = 3;
-            }
+            
             if (Physics.Raycast(ray, out hit))
             {
               var obj = hit.collider.gameObject;
               float dist = hit.distance;
-              Debug.Log(dist);
+              //Debug.Log(dist);
               if(dist < 7 && obj.name.Equals("Exit")) {
                   //checkBoxPOISquare.isOn = true;
                   Debug.Log("EXIT REACHED");
