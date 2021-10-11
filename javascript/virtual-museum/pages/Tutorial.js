@@ -8,10 +8,10 @@ const unityContext = new UnityContext({
     codeUrl: "Tutorial/Build/Tutorial.wasm",
 });
 const unityContext2 = new UnityContext({
-    loaderUrl: "Build/public.loader.js",
-    dataUrl: "Build/public.data",
-    frameworkUrl: "Build/public.framework.js",
-    codeUrl: "Build/public.wasm",
+    loaderUrl: "Build/Build/Build.loader.js",
+    dataUrl: "Build/Build/Build.data",
+    frameworkUrl: "Build/Build/Build.framework.js",
+    codeUrl: "Build/Build/Build.wasm",
 });
 
 export default function Tutorial(props) {
@@ -32,6 +32,7 @@ export default function Tutorial(props) {
             setIsLoaded(true);
             unityContext.setFullscreen(true);
         });
+        unityContext.on("quitted", function () { });
     }, []);
     function makeFullScreen() {
         unityContext.setFullscreen(true);
