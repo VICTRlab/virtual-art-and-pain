@@ -1,11 +1,16 @@
 import { useState } from 'react'
+import { useRouter } from 'next/Router';
 import BaselineForm from "./BaselineForm";
 import OutcomeForm from "./OutcomeForm";
 import Museum from "./Museum";
 import SocialConnectPrime from './SocialConnectPrime';
 import Tutorial from './Tutorial';
 import BlankMuseum from './BlankMuseum';
+
 export default function App() {
+    const router = useRouter();
+    console.log(router.query.id);
+    console.log(router.query.group);
 
     const [finishBaseline, setFinishBaseline] = useState(false);
     const [finishOutcome1, setFinishOutcome1] = useState(false);
@@ -22,9 +27,18 @@ export default function App() {
     function makeFullScreen() {
         //setFullScreen(true);
     }
+    function Home() {
+        return <h2>Home</h2>;
+    }
+
+    function About() {
+        return <h2>About</h2>;
+    }
     return (
         <div>
-            {finishBaseline === false && (<Tutorial submitSurvey={finishBaseLine} />)}
+            {router.query.id !== null && <h1>UserID: {router.query.id}</h1>}
+            {router.query.group !== null && <h1>Group: {router.query.group}</h1>}
+            {finishBaseline === false && (<BaselineForm submitSurvey={finishBaseLine} />)}
             {finishBaseline === true && finishOutcome1 === false && (<OutcomeForm submitSurvey={() => { setFinishOutcome1(true) }} />)}
             {finishOutcome1 === true && finishSocialConn === false && (<SocialConnectPrime submitSurvey={() => { setFinishSocialConn(true) }} />)}
             {finishSocialConn === true && finishTutorial === false && (
@@ -61,6 +75,7 @@ export default function App() {
             {finishMuseum1 === true && finishOutcome2 === false && <OutcomeForm submitSurvey={() => { setFinishOutcome2(true) }} />}
             {finishOutcome2 === true && finishMuseum2 === false && <BlankMuseum />}
             {finishMuseum2 === true && finishOutcome3 === false && <OutcomeForm submitSurvey={() => { setFinishOutcome3(true) }} />}
+
         </div>
     );
 }
