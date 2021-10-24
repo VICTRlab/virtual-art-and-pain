@@ -2,7 +2,6 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import App from './App'
 import { initializeApp } from "firebase/app";
-import { useRouter } from 'next/Router'
 //import { getAnalytics } from "firebase/analytics";
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
