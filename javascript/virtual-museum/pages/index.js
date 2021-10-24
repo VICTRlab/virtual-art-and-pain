@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import { useEffect } from 'react'
 import styles from '../styles/Home.module.css'
 import App from './App'
 import { initializeApp } from "firebase/app";
