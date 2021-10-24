@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useRouter } from 'next/Router';
 import BaselineForm from "./BaselineForm";
 import OutcomeForm from "./OutcomeForm";
 import Museum from "./Museum";
@@ -8,9 +7,9 @@ import Tutorial from './Tutorial';
 import BlankMuseum from './BlankMuseum';
 
 export default function App() {
-    const router = useRouter();
-    console.log(router.query.id);
-    console.log(router.query.group);
+    // const router = useRouter();
+    // console.log(router.query.id);
+    // console.log(router.query.group);
 
     const [finishBaseline, setFinishBaseline] = useState(false);
     const [finishOutcome1, setFinishOutcome1] = useState(false);
@@ -36,8 +35,6 @@ export default function App() {
     }
     return (
         <div>
-            {router.query.id !== null && <h1>UserID: {router.query.id}</h1>}
-            {router.query.group !== null && <h1>Group: {router.query.group}</h1>}
             {finishBaseline === false && (<Tutorial submitSurvey={finishBaseLine} />)}
             {finishBaseline === true && finishOutcome1 === false && (<OutcomeForm submitSurvey={() => { setFinishOutcome1(true) }} />)}
             {finishOutcome1 === true && finishSocialConn === false && (<SocialConnectPrime submitSurvey={() => { setFinishSocialConn(true) }} />)}
