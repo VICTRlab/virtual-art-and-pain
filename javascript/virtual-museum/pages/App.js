@@ -38,7 +38,7 @@ export default function App() {
         <div>
             {router.query.id !== null && <h1>UserID: {router.query.id}</h1>}
             {router.query.group !== null && <h1>Group: {router.query.group}</h1>}
-            {finishBaseline === false && (<BaselineForm submitSurvey={finishBaseLine} />)}
+            {finishBaseline === false && (<Tutorial submitSurvey={finishBaseLine} />)}
             {finishBaseline === true && finishOutcome1 === false && (<OutcomeForm submitSurvey={() => { setFinishOutcome1(true) }} />)}
             {finishOutcome1 === true && finishSocialConn === false && (<SocialConnectPrime submitSurvey={() => { setFinishSocialConn(true) }} />)}
             {finishSocialConn === true && finishTutorial === false && (
