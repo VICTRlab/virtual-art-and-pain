@@ -1,27 +1,38 @@
 import Unity, { UnityContext } from "react-unity-webgl";
 import { useState, useEffect } from "react";
-
-const unityContext = new UnityContext({
-    loaderUrl: "Build/public.loader.js",
-    dataUrl: "Build/public.data",
-    frameworkUrl: "Build/public.framework.js",
-    codeUrl: "Build/public.wasm",
+import Loading from "./Loading";
+const unityContext2 = new UnityContext({
+    loaderUrl: "Tutorial/Build/Tutorial.loader.js",
+    dataUrl: "Tutorial/Build/Tutorial.data",
+    frameworkUrl: "Tutorial/Build/Tutorial.framework.js",
+    codeUrl: "Tutorial/Build/Tutorial.wasm",
 });
-
+const unityContext = new UnityContext({
+    loaderUrl: "Build/Build/Build.loader.js",
+    dataUrl: "Build/Build/Build.data",
+    frameworkUrl: "Build/Build/Build.framework.js",
+    codeUrl: "Build/Build/Build.wasm",
+});
 
 export default function Tutorial(props) {
 
     const [isLoaded, setIsLoaded] = useState(false);
+    const [progression, setProgression] = useState(0);
     useEffect(function () {
         //unityContext.setFullscreen(true);
         unityContext.on("canvas", function (canvas) {
-            canvas.width = 1080;
-            canvas.height = 720;
+            //canvas.width = 1080;
+            //canvas.height = 720;
+        });
+        unityContext.on("progress", function (progression) {
+            setProgression(progression);
+            console.log(progression);
         });
         unityContext.on("loaded", function () {
             setIsLoaded(true);
             unityContext.setFullscreen(true);
         });
+        unityContext.on("quitted", function () { });
     }, []);
     function makeFullScreen() {
         unityContext.setFullscreen(true);
@@ -29,18 +40,19 @@ export default function Tutorial(props) {
     }
     return (
         <div className='flex flex-col'>
+            {!isLoaded &&
+                <>
+                    <p>Loading: {Math.round(progression) * 100}%</p>
+                    <Loading />
+
+                </>
+            }
+
 
             <Unity
                 unityContext={unityContext}
-                matchWebGLToCanvasSize={false}
-                style={{ width: "720px", height: "480px", visibility: isLoaded ? "visible" : "hidden" }}
-
-            />
-            <button
-                onClick={makeFullScreen}
-                className='inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-none text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-            >
-                Full Screen</button>
+                matchWebGLToCanvasSize={true}
+                style={{ width: "100%", visibility: isLoaded ? "visible" : "hidden" }} />
         </div>
     );
 }

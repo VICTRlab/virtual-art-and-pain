@@ -9,7 +9,7 @@
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
-      <canvas id="unity-canvas" width=960 height=600></canvas>
+      <canvas id="unity-canvas" width=720 height=480></canvas>
       <div id="unity-loading-bar">
         <div id="unity-logo"></div>
         <div id="unity-progress-bar-empty">
@@ -29,9 +29,9 @@
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/public.loader.js";
       var config = {
-        dataUrl: buildUrl + "/public.data.br",
-        frameworkUrl: buildUrl + "/public.framework.js.br",
-        codeUrl: buildUrl + "/public.wasm.br",
+        dataUrl: buildUrl + "/public.data",
+        frameworkUrl: buildUrl + "/public.framework.js",
+        codeUrl: buildUrl + "/public.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "VICTR-LAB-Museum",
@@ -62,8 +62,8 @@
           mobileWarning.style.display = "none";
         }, 5000);
       } else {
-        canvas.style.width = "960px";
-        canvas.style.height = "600px";
+        canvas.style.width = "720px";
+        canvas.style.height = "480px";
       }
       loadingBar.style.display = "block";
 

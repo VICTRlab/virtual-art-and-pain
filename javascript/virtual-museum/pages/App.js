@@ -24,13 +24,13 @@ export default function App() {
     }
     return (
         <div>
-            {finishBaseline === false && (<BaselineForm submitSurvey={finishBaseLine} />)}
+            {finishBaseline === false && (<Tutorial submitSurvey={finishBaseLine} />)}
             {finishBaseline === true && finishOutcome1 === false && (<OutcomeForm submitSurvey={() => { setFinishOutcome1(true) }} />)}
             {finishOutcome1 === true && finishSocialConn === false && (<SocialConnectPrime submitSurvey={() => { setFinishSocialConn(true) }} />)}
             {finishSocialConn === true && finishTutorial === false && (
                 <>
-                    <div className='col-span-2 flex items-center justify-center h-screen'>
-                        <Museum makeFullScreen={makeFullScreen} />
+                    <div className=''>
+                        <Tutorial makeFullScreen={makeFullScreen} />
                     </div>
 
 
