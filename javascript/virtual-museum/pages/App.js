@@ -5,7 +5,11 @@ import Museum from "./Museum";
 import SocialConnectPrime from './SocialConnectPrime';
 import Tutorial from './Tutorial';
 import BlankMuseum from './BlankMuseum';
+
 export default function App() {
+    // const router = useRouter();
+    // console.log(router.query.id);
+    // console.log(router.query.group);
 
     const [finishBaseline, setFinishBaseline] = useState(false);
     const [finishOutcome1, setFinishOutcome1] = useState(false);
@@ -21,6 +25,13 @@ export default function App() {
     }
     function makeFullScreen() {
         //setFullScreen(true);
+    }
+    function Home() {
+        return <h2>Home</h2>;
+    }
+
+    function About() {
+        return <h2>About</h2>;
     }
     return (
         <div>
@@ -61,6 +72,7 @@ export default function App() {
             {finishMuseum1 === true && finishOutcome2 === false && <OutcomeForm submitSurvey={() => { setFinishOutcome2(true) }} />}
             {finishOutcome2 === true && finishMuseum2 === false && <BlankMuseum />}
             {finishMuseum2 === true && finishOutcome3 === false && <OutcomeForm submitSurvey={() => { setFinishOutcome3(true) }} />}
+
         </div>
     );
 }
