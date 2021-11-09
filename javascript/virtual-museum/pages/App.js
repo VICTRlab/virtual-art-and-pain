@@ -4,7 +4,7 @@ import OutcomeForm from "./OutcomeForm";
 import Museum from "./Museum";
 import SocialConnectPrime from './SocialConnectPrime';
 import Tutorial from './Tutorial';
-import BlankMuseum from './BlankMuseum';
+//import BlankMuseum from './BlankMuseum';
 import { useRouter } from 'next/router';
 //import { useState, useEffect } from "react";
 export default function App() {
@@ -69,7 +69,7 @@ export default function App() {
                 </>
             )}
             {finishMuseum1 === true && finishOutcome2 === false && <OutcomeForm submitSurvey={() => { setFinishOutcome2(true) }} />}
-            {finishOutcome2 === true && finishMuseum2 === false && <BlankMuseum />}
+            {finishOutcome2 === true && finishMuseum2 === false && <Tutorial />}
             {finishMuseum2 === true && finishOutcome3 === false && <OutcomeForm submitSurvey={() => { setFinishOutcome3(true) }} />}
         </div>
     );
