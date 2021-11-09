@@ -5,7 +5,14 @@ import Museum from "./Museum";
 import SocialConnectPrime from './SocialConnectPrime';
 import Tutorial from './Tutorial';
 import BlankMuseum from './BlankMuseum';
+import { useRouter } from 'next/Router';
+import Link from 'next/link'
+
 export default function App() {
+    const router = useRouter();
+
+    const { id, group } = router.query
+
 
     const [finishBaseline, setFinishBaseline] = useState(false);
     const [finishOutcome1, setFinishOutcome1] = useState(false);
@@ -24,7 +31,9 @@ export default function App() {
     }
     return (
         <div>
-            {finishBaseline === false && (<Tutorial submitSurvey={finishBaseLine} />)}
+            <div>ID:{id}</div>
+            <div>GROUP:{group}</div>
+            {finishBaseline === false && (<BaselineForm submitSurvey={finishBaseLine} group={id} />)}
             {finishBaseline === true && finishOutcome1 === false && (<OutcomeForm submitSurvey={() => { setFinishOutcome1(true) }} />)}
             {finishOutcome1 === true && finishSocialConn === false && (<SocialConnectPrime submitSurvey={() => { setFinishSocialConn(true) }} />)}
             {finishSocialConn === true && finishTutorial === false && (
