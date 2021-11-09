@@ -6,13 +6,11 @@ import SocialConnectPrime from './SocialConnectPrime';
 import Tutorial from './Tutorial';
 import BlankMuseum from './BlankMuseum';
 import { useRouter } from 'next/Router';
-import Link from 'next/link'
 
 export default function App() {
     const router = useRouter();
 
     const { id, group } = router.query
-
 
     const [finishBaseline, setFinishBaseline] = useState(false);
     const [finishOutcome1, setFinishOutcome1] = useState(false);
