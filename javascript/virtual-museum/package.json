@@ -1,29 +1,28 @@
 {
-  "name": "virtual-museum",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@tailwindcss/forms": "^0.3.3",
-    "firebase": "^9.0.1",
-    "next": "^11.1.2",
-    "next-router": "^1.3.6",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "react-loadingg": "^1.7.2",
-    "react-timer-hook": "^3.0.5",
-    "react-unity-webgl": "^8.4.6"
-  },
-  "devDependencies": {
-    "autoprefixer": "^10.3.4",
-    "eslint": "7.32.0",
-    "eslint-config-next": "11.0.1",
-    "postcss": "^8.3.6",
-    "tailwindcss": "^2.2.10"
-  }
+    "name": "virtual-museum",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint"
+    },
+    "dependencies": {
+        "@tailwindcss/forms": "^0.3.3",
+        "firebase": "^9.0.1",
+        "next": "^11.1.2",
+        "react": "17.0.2",
+        "react-dom": "17.0.2",
+        "react-loadingg": "^1.7.2",
+        "react-timer-hook": "^3.0.5",
+        "react-unity-webgl": "^8.4.6"
+    },
+    "devDependencies": {
+        "autoprefixer": "^10.3.4",
+        "eslint": "7.32.0",
+        "eslint-config-next": "11.0.1",
+        "postcss": "^8.3.6",
+        "tailwindcss": "^2.2.10"
+    }
 }

@@ -1,12 +1,7 @@
 import Unity, { UnityContext } from "react-unity-webgl";
 import { useState, useEffect } from "react";
 
-const unityContext = new UnityContext({
-    loaderUrl: "Build/public.loader.js",
-    dataUrl: "Build/public.data",
-    frameworkUrl: "Build/public.framework.js",
-    codeUrl: "Build/public.wasm",
-});
+let unityContext;
 
 
 export default function Museum(props) {
@@ -15,6 +10,12 @@ export default function Museum(props) {
     const [progression, setProgression] = useState(0);
 
     useEffect(function () {
+        unityContext = new UnityContext({
+            loaderUrl: "Build/public.loader.js",
+            dataUrl: "Build/public.data",
+            frameworkUrl: "Build/public.framework.js",
+            codeUrl: "Build/public.wasm",
+        });
         //unityContext.setFullscreen(true);
         unityContext.on("canvas", function (canvas) {
             canvas.width = 1080;
