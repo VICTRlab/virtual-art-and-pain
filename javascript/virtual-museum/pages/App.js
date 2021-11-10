@@ -9,9 +9,8 @@ import { useRouter } from 'next/router';
 //import { useState, useEffect } from "react";
 export default function App() {
     const router = useRouter();
-    useEffect(function () {
-        console.log(router.query)
-    }, []);
+    console.log(router.query)
+
 
 
     //const { id, group } = router.query
