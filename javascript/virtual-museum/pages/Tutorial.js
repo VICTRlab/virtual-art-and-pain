@@ -11,16 +11,16 @@ import Loading from "./Loading";
 let unityContext;
 
 export default function Tutorial(props) {
-
+    const [unityContext, setUnityContext] = useState(new UnityContext({
+        loaderUrl: "Build/public.loader.js",
+        dataUrl: "Build/public.data",
+        frameworkUrl: "Build/public.framework.js",
+        codeUrl: "Build/public.wasm",
+    }));
     const [isLoaded, setIsLoaded] = useState(false);
     const [progression, setProgression] = useState(0);
     useEffect(function () {
-        unityContext = new UnityContext({
-            loaderUrl: "Build/Build/Build.loader.js",
-            dataUrl: "Build/Build/Build.data",
-            frameworkUrl: "Build/Build/Build.framework.js",
-            codeUrl: "Build/Build/Build.wasm",
-        });//unityContext.setFullscreen(true);
+
         unityContext.on("canvas", function (canvas) {
             //canvas.width = 1080;
             //canvas.height = 720;
@@ -48,12 +48,14 @@ export default function Tutorial(props) {
 
                 </>
             }
+            {unityContext !== null &&
+                <Unity
+                    unityContext={unityContext}
+                    matchWebGLToCanvasSize={false}
+                    style={{ width: "100%", visibility: isLoaded ? "visible" : "hidden" }}
 
-
-            <Unity
-                unityContext={unityContext}
-                matchWebGLToCanvasSize={true}
-                style={{ width: "100%", visibility: isLoaded ? "visible" : "hidden" }} />
+                />
+            }
         </div>
     );
 }
