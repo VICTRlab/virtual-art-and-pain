@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import BaselineForm from "./BaselineForm";
 import OutcomeForm from "./OutcomeForm";
-import Museum from "./Museum";
+import Museum from "../components/Museum";
 import SocialConnectPrime from './SocialConnectPrime';
-import Tutorial from './Tutorial';
+import Tutorial from '../components/Tutorial';
 //import BlankMuseum from './BlankMuseum';
 import { useRouter } from 'next/router';
 //import { useState, useEffect } from "react";
