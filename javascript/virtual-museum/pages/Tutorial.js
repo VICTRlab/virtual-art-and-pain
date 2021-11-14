@@ -11,30 +11,32 @@ import Loading from "./Loading";
 let unityContext;
 
 export default function Tutorial(props) {
-    const [unityContext, setUnityContext] = useState(new UnityContext({
+    const [unityContext, setUnityContext] = useState(typeof window !== undefined ? new UnityContext({
         loaderUrl: "Build/public.loader.js",
         dataUrl: "Build/public.data",
         frameworkUrl: "Build/public.framework.js",
         codeUrl: "Build/public.wasm",
-    }));
+    }) : null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [progression, setProgression] = useState(0);
     useEffect(function () {
-
-        unityContext.on("canvas", function (canvas) {
-            //canvas.width = 1080;
-            //canvas.height = 720;
-        });
-        unityContext.on("progress", function (progression) {
-            setProgression(progression);
-            console.log(progression);
-        });
-        unityContext.on("loaded", function () {
-            setIsLoaded(true);
-            unityContext.setFullscreen(true);
-        });
-        unityContext.on("quitted", function () { });
+        if (typeof window !== undefined) {
+            unityContext.on("canvas", function (canvas) {
+                //canvas.width = 1080;
+                //canvas.height = 720;
+            });
+            unityContext.on("progress", function (progression) {
+                setProgression(progression);
+                console.log(progression);
+            });
+            unityContext.on("loaded", function () {
+                setIsLoaded(true);
+                unityContext.setFullscreen(true);
+            });
+            unityContext.on("quitted", function () { });
+        }
     }, []);
+
     function makeFullScreen() {
         unityContext.setFullscreen(true);
 
@@ -48,7 +50,7 @@ export default function Tutorial(props) {
 
                 </>
             }
-            {unityContext !== null &&
+            {typeof window !== undefined && unityContext !== null &&
                 <Unity
                     unityContext={unityContext}
                     matchWebGLToCanvasSize={false}
