@@ -42,6 +42,7 @@ public class GalleryManager : MonoBehaviour
         listNum = -1;
 
         //turnOffHint = GameObject.Find("turnOffHint");
+        Debug.Log("test");
         turnOnHint = GameObject.Find("turnOnHint");
         welcomeTextObj = GameObject.Find("Welcome");
         welcomePanelObj = GameObject.Find("Panel");
