@@ -36,7 +36,7 @@ export default function App() {
             <div>{router.query.group}</div>
             {finishWelcome === false &&                                 (<Welcome submitSurvey={() => {setFinishWelcome(true)}} />)}
             {finishWelcome === true && finishBaseline === false &&      (<BaselineForm submitSurvey={() => {setFinishBaseline(true)}}/>)}
-            {finishBaseline === true && finishOutcome1 === false &&     (<OutcomeForm submitSurvey={() => { setFinishOutcome1(true) }} />)}
+            {finishBaseline === true && finishOutcome1 === false &&     (<OutcomeForm outcomeCount={1} submitSurvey={() => { setFinishOutcome1(true) }} />)}
             {finishOutcome1 === true && finishSocialConn === false &&   (<SocialConnectPrime submitSurvey={() => { setFinishSocialConn(true) }} />)}
             {finishSocialConn === true && finishTutorial === false && (<Tutorial makeFullScreen={makeFullScreen} />)}
             {finishTutorial === true && finishMuseum1 === false && (//M1
@@ -61,9 +61,9 @@ export default function App() {
 
                 </>
             )}
-            {finishMuseum1 === true && finishOutcome2 === false && <OutcomeForm submitSurvey={() => { setFinishOutcome2(true) }} />}
+            {finishMuseum1 === true && finishOutcome2 === false && <OutcomeForm outcomeCount={2} submitSurvey={() => { setFinishOutcome2(true) }} />}
             {finishOutcome2 === true && finishMuseum2 === false && <Tutorial />}
-            {finishMuseum2 === true && finishOutcome3 === false && <OutcomeForm submitSurvey={() => { setFinishOutcome3(true) }} />}
+            {finishMuseum2 === true && finishOutcome3 === false && <OutcomeForm outcomeCount={3} submitSurvey={() => { setFinishOutcome3(true) }} />}
 
         </div>
     );
