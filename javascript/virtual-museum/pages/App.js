@@ -1,15 +1,19 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import BaselineForm from "./BaselineForm";
 import OutcomeForm from "./OutcomeForm";
-import Museum from "./Museum";
+import Museum from "../components/Museum";
 import SocialConnectPrime from './SocialConnectPrime';
-import Tutorial from './Tutorial';
-import BlankMuseum from './BlankMuseum';
-
+import Tutorial from '../components/Tutorial';
+//import BlankMuseum from './BlankMuseum';
+import { useRouter } from 'next/router';
+//import { useState, useEffect } from "react";
 export default function App() {
-    // const router = useRouter();
-    // console.log(router.query.id);
-    // console.log(router.query.group);
+    const router = useRouter();
+    console.log(router.query)
+
+
+
+    //const { id, group } = router.query
 
     const [finishBaseline, setFinishBaseline] = useState(false);
     const [finishOutcome1, setFinishOutcome1] = useState(false);
@@ -35,6 +39,8 @@ export default function App() {
     }
     return (
         <div>
+            <div>{router.query.id}</div>
+            <div>{router.query.group}</div>
             {finishBaseline === false && (<BaselineForm submitSurvey={finishBaseLine} />)}
             {finishBaseline === true && finishOutcome1 === false && (<OutcomeForm submitSurvey={() => { setFinishOutcome1(true) }} />)}
             {finishOutcome1 === true && finishSocialConn === false && (<SocialConnectPrime submitSurvey={() => { setFinishSocialConn(true) }} />)}
@@ -70,7 +76,7 @@ export default function App() {
                 </>
             )}
             {finishMuseum1 === true && finishOutcome2 === false && <OutcomeForm submitSurvey={() => { setFinishOutcome2(true) }} />}
-            {finishOutcome2 === true && finishMuseum2 === false && <BlankMuseum />}
+            {finishOutcome2 === true && finishMuseum2 === false && <Tutorial />}
             {finishMuseum2 === true && finishOutcome3 === false && <OutcomeForm submitSurvey={() => { setFinishOutcome3(true) }} />}
 
         </div>
