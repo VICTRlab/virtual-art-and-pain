@@ -30,6 +30,13 @@ export default function App() {
     function makeFullScreen() {
         //setFullScreen(true);
     }
+    function Home() {
+        return <h2>Home</h2>;
+    }
+
+    function About() {
+        return <h2>About</h2>;
+    }
     return (
         <div>
             <div>{router.query.id}</div>
@@ -71,6 +78,7 @@ export default function App() {
             {finishMuseum1 === true && finishOutcome2 === false && <OutcomeForm submitSurvey={() => { setFinishOutcome2(true) }} />}
             {finishOutcome2 === true && finishMuseum2 === false && <Tutorial />}
             {finishMuseum2 === true && finishOutcome3 === false && <OutcomeForm submitSurvey={() => { setFinishOutcome3(true) }} />}
+
         </div>
     );
 }
