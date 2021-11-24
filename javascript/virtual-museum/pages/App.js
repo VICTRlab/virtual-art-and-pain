@@ -4,6 +4,7 @@ import OutcomeForm from "./OutcomeForm";
 import Museum from "../components/Museum";
 import SocialConnectPrime from './SocialConnectPrime';
 import Tutorial from '../components/Tutorial';
+import Welcome from './Welcome';
 //import BlankMuseum from './BlankMuseum';
 import { useRouter } from 'next/router';
 //import { useState, useEffect } from "react";
@@ -14,7 +15,7 @@ export default function App() {
 
 
     //const { id, group } = router.query
-
+    const [finishWelcome, setFinishWelcome] = useState(false);
     const [finishBaseline, setFinishBaseline] = useState(false);
     const [finishOutcome1, setFinishOutcome1] = useState(false);
     const [finishSocialConn, setFinishSocialConn] = useState(false);
@@ -24,35 +25,20 @@ export default function App() {
     const [finishMuseum2, setFinishMuseum2] = useState(false);
     const [finishOutcome3, setFinishOutcome3] = useState(false);
 
-    function finishBaseLine() {
-        setFinishBaseline(true);
-    }
+    
     function makeFullScreen() {
         //setFullScreen(true);
     }
-    function Home() {
-        return <h2>Home</h2>;
-    }
-
-    function About() {
-        return <h2>About</h2>;
-    }
+    
     return (
         <div>
             <div>{router.query.id}</div>
             <div>{router.query.group}</div>
-            {finishBaseline === false && (<BaselineForm submitSurvey={finishBaseLine} />)}
-            {finishBaseline === true && finishOutcome1 === false && (<OutcomeForm submitSurvey={() => { setFinishOutcome1(true) }} />)}
-            {finishOutcome1 === true && finishSocialConn === false && (<SocialConnectPrime submitSurvey={() => { setFinishSocialConn(true) }} />)}
-            {finishSocialConn === true && finishTutorial === false && (
-                <>
-                    <div className=''>
-                        <Tutorial makeFullScreen={makeFullScreen} />
-                    </div>
-
-
-                </>
-            )}
+            {finishWelcome === false &&                                 (<Welcome submitSurvey={() => {setFinishWelcome(true)}} />)}
+            {finishWelcome === true && finishBaseline === false &&      (<BaselineForm submitSurvey={() => {setFinishBaseline(true)}}/>)}
+            {finishBaseline === true && finishOutcome1 === false &&     (<OutcomeForm submitSurvey={() => { setFinishOutcome1(true) }} />)}
+            {finishOutcome1 === true && finishSocialConn === false &&   (<SocialConnectPrime submitSurvey={() => { setFinishSocialConn(true) }} />)}
+            {finishSocialConn === true && finishTutorial === false && (<Tutorial makeFullScreen={makeFullScreen} />)}
             {finishTutorial === true && finishMuseum1 === false && (//M1
                 <>
                     <div className='md:col-span-2 flex items-center justify-center h-screen'>
