@@ -8,11 +8,11 @@ public class GalleryManager : MonoBehaviour
     public GameObject welcomePanelObj;
     public GameObject completeTextObj;
     
-    public GameObject t1;
+   // public GameObject t1;
     public GameObject t2;
     public bool t1On = false;
     private double timer = 0.0;
-    public bool startTimer = true;
+    public bool startTimer;
     public GameObject timeTextObj;
     public Text timeText;
 
@@ -26,7 +26,7 @@ public class GalleryManager : MonoBehaviour
     public GameObject turnOffHint;
     public GameObject turnOnHint;
     void Start(){
-
+        startTimer  = true;
         textOn = false;
         objOn = null;
         frames = new List<GameObject>();
@@ -36,13 +36,14 @@ public class GalleryManager : MonoBehaviour
         foreach(GameObject frame in frames) 
         {
             GameObject painting = frame.transform.GetChild(0).gameObject;
+            Debug.Log(frame.name);
             GameObject text = painting.transform.GetChild(0).gameObject;
             text.SetActive(false);
         }
         listNum = -1;
 
         //turnOffHint = GameObject.Find("turnOffHint");
-        Debug.Log("test");
+        Debug.Log("@@@start@@@@");
         turnOnHint = GameObject.Find("turnOnHint");
         welcomeTextObj = GameObject.Find("Welcome");
         welcomePanelObj = GameObject.Find("Panel");
@@ -53,16 +54,16 @@ public class GalleryManager : MonoBehaviour
         timeText = timeTextObj.GetComponent<Text>();
         timeTextObj.SetActive(false);
 
-        t1 = GameObject.Find("t1");
-        t2 = GameObject.Find("t2");
-        t1.SetActive(false);
-        t2.SetActive(false);
+       // t1 = GameObject.Find("t1");
+        //t2 = GameObject.Find("t2");
+       // t1.SetActive(false);
+       // t2.SetActive(false);
     }
     
     void Update(){
         //controlOffHint();
         ////controlOnHint();
-        
+        Debug.Log("update");
             int layerMask = 1 << 8;
             layerMask = ~layerMask;
 
@@ -77,7 +78,7 @@ public class GalleryManager : MonoBehaviour
                     turnOnHint.SetActive(true);
                     GameObject painting = obj.transform.GetChild(0).gameObject;
                     GameObject text = painting.transform.GetChild(0).gameObject;
-                    Debug.Log(text.name);
+                   // Debug.Log(text.name);
                     if(Input.GetKeyDown(KeyCode.I))
                     {
                         if(textOn)
@@ -161,7 +162,7 @@ public class GalleryManager : MonoBehaviour
                 {
                     GameObject painting = obj.transform.GetChild(0).gameObject;
                     GameObject text = painting.transform.GetChild(0).gameObject;
-                    Debug.Log(text.name);
+                    //Debug.Log(text.name);
                     if(Input.GetKeyDown(KeyCode.I))
                     {
                         if(textOn)
