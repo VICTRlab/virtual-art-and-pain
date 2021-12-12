@@ -12,7 +12,6 @@ export default function Museum(props) {
     const [progression, setProgression] = useState(0);
 
     useEffect(function () {
-
         //unityContext.setFullscreen(true);
         unityContext.on("canvas", function (canvas) {
             canvas.width = 1080;

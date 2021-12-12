@@ -25,7 +25,8 @@ export default function App() {
     const [finishMuseum2, setFinishMuseum2] = useState(false);
     const [finishOutcome3, setFinishOutcome3] = useState(false);
 
-    
+    const uuid = "someUniqueID"
+
     function makeFullScreen() {
         //setFullScreen(true);
     }
@@ -38,7 +39,7 @@ export default function App() {
             {finishWelcome === true && finishBaseline === false &&      (<BaselineForm submitSurvey={() => {setFinishBaseline(true)}}/>)}
             {finishBaseline === true && finishOutcome1 === false &&     (<OutcomeForm outcomeCount={1} submitSurvey={() => { setFinishOutcome1(true) }} />)}
             {finishOutcome1 === true && finishSocialConn === false &&   (<SocialConnectPrime submitSurvey={() => { setFinishSocialConn(true) }} />)}
-            {finishSocialConn === true && finishTutorial === false && (<Tutorial makeFullScreen={makeFullScreen} />)}
+            {finishSocialConn === true && finishTutorial === false && (<Tutorial uuid={uuid} makeFullScreen={makeFullScreen} />)}
             {finishTutorial === true && finishMuseum1 === false && (//M1
                 <>
                     <div className='md:col-span-2 flex items-center justify-center h-screen'>
