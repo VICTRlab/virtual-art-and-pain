@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class TutorialManager : MonoBehaviour
 {
     public GameObject welcomeTextObj;
+    public GameObject uuidTextObj;
     public GameObject completeTextObj;
     public GameObject sphereInfoTextObj;
     public GameObject squareInfoTextObj;
@@ -47,10 +48,19 @@ public class TutorialManager : MonoBehaviour
     private float timer = 0.0f;
     private float waitTime = 5.0f;
     public bool startTimer = true;
+    public string uuid = "PLACEHOLDER";
+    public void SetUUID(string uuid)
+    {
+        this.uuid = uuid;
+    }
 
     void Start()
     {
         listNum = -1;
+
+        uuidTextObj = GameObject.Find("UUID");
+        uuidTextObj.GetComponent<Text>().text = uuid;
+
         welcomeTextObj = GameObject.Find("Welcome");
         completeTextObj = GameObject.Find("CompleteText");
         completeTextObj.SetActive(false);
@@ -117,6 +127,9 @@ public class TutorialManager : MonoBehaviour
     }
     void Update()
     {
+
+        uuidTextObj = GameObject.Find("UUID");
+        uuidTextObj.GetComponent<Text>().text = uuid;
 
         squareInfoTextObj.transform.LookAt(Camera.main.transform);
         sphereInfoTextObj.transform.LookAt(Camera.main.transform);

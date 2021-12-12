@@ -12,20 +12,20 @@ let unityContext;
 
 export default function Tutorial(props) {
     const [unityContext, setUnityContext] = useState(typeof window !== undefined ? new UnityContext({
-        loaderUrl: "Build/public.loader.js",
-        dataUrl: "Build/public.data",
-        frameworkUrl: "Build/public.framework.js",
-        codeUrl: "Build/public.wasm",
+        loaderUrl: "Tutorial/Build/Tutorial.loader.js",
+        dataUrl: "Tutorial/Build/Tutorial.data",
+        frameworkUrl: "Tutorial/Build/Tutorial.framework.js",
+        codeUrl: "Tutorial/Build/Tutorial.wasm",
     }) : null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [progression, setProgression] = useState(0);
     useEffect(function () {
         if (typeof window !== undefined) {
-            unityContext.send("UUID", "uuid", this.props.uuid);
+            unityContext.send("GameManager", "SetUUID", props.uuid);
 
             unityContext.on("canvas", function (canvas) {
-                //canvas.width = 1080;
-                //canvas.height = 720;
+                canvas.width = 1080;
+                canvas.height = 720;
             });
             unityContext.on("progress", function (progression) {
                 setProgression(progression);
@@ -55,7 +55,7 @@ export default function Tutorial(props) {
             {typeof window !== undefined && unityContext !== null &&
                 <Unity
                     unityContext={unityContext}
-                    matchWebGLToCanvasSize={false}
+                    matchWebGLToCanvasSize={true}
                     style={{ width: "100%", visibility: isLoaded ? "visible" : "hidden" }}
 
                 />
