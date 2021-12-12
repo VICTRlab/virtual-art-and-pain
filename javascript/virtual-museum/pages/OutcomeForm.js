@@ -5,6 +5,8 @@ import FillinQuestion from "./FillinQuestion";
 import RadioQuestion from "./RadioQuestion";
 import RadioGroup from "./RadioGroup";
 import RadioGrid from "./RadioGrid";
+
+const userID = "AABBCC";
 class OutcomeForm extends Component {
     constructor(props) {
         super(props);
@@ -29,14 +31,14 @@ class OutcomeForm extends Component {
 
     handleSubmit(event) {
         //alert('A name was submitted: ' + this.state.a1_1);
-        this.writeData(this.state.a1_1);
+        this.writeData(userID);
         console.log(this.state);
         event.preventDefault();
         this.props.submitSurvey();
     }
     writeData(userID) {
         const db = getDatabase();
-        set(ref(db, 'users/' + userID), this.state);
+        set(ref(db, 'users/' + userID + '/Outcome' + this.props.outcomeCount), this.state);
     }
     render() {
 
@@ -107,6 +109,7 @@ class OutcomeForm extends Component {
 
                                         <RadioGrid
                                             name="q3_5"
+                                            answers={new Map()}
                                             question="Please rate the extent to which you feel the following feelings right now: "
                                             options={[
                                                 { text: "Not at all\n1" },

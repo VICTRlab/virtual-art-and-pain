@@ -21,6 +21,8 @@ export default function Tutorial(props) {
     const [progression, setProgression] = useState(0);
     useEffect(function () {
         if (typeof window !== undefined) {
+            unityContext.send("UUID", "uuid", this.props.uuid);
+
             unityContext.on("canvas", function (canvas) {
                 //canvas.width = 1080;
                 //canvas.height = 720;
