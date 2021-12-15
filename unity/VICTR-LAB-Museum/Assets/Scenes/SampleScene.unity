@@ -94048,7 +94048,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1589614409}
   m_LocalRotation: {x: -0, y: 0.0059340587, z: -0, w: 0.9999824}
-  m_LocalPosition: {x: 0, y: 0, z: -0.19904184}
+  m_LocalPosition: {x: 0, y: 0, z: 0.02}
   m_LocalScale: {x: 0.61328274, y: 1.038, z: 0.9988053}
   m_Children: []
   m_Father: {fileID: 364762080}
@@ -94056,7 +94056,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.1545689, y: -0.119053796}
+  m_AnchoredPosition: {x: -0.774, y: -0.199}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1589614411
@@ -94079,9 +94079,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Woman with a Parasol - Madame Monet and Her Son\r\nClaude Monet 1875\r\n\nThe
-    spontaneity and naturalness of this painting were praised when it appeared in
-    the second impressionist exhibition in 1876.\r"
+  m_text: "Return from The Field\r\nMartin Djukin 2014\r\n \r\nThe scene is nostalgic,
+    an attempt to reconstruct happy times and quiet life.\r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -98087,7 +98086,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 0
 --- !u!224 &1666459045
 RectTransform:
@@ -98097,7 +98096,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1666459044}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1749627606}
@@ -98105,7 +98104,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -4.358, y: -0.171}
+  m_AnchoredPosition: {x: -1.227, y: -0.11}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1666459046
@@ -98128,8 +98127,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Return from The Field\r\nMartin Djukin 2014\r\n \r\nThe scene is nostalgic,
-    an attempt to reconstruct happy times and quiet life.\r\n"
+  m_text: "Woman with a Parasol - Madame Monet and Her Son\r\nClaude Monet 1875\r\n\nThe
+    spontaneity and naturalness of this painting were praised when it appeared in
+    the second impressionist exhibition in 1876.\r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
