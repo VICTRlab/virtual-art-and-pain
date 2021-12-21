@@ -12,16 +12,18 @@ class BaselineForm extends Component {
         super(props);
         this.state = {
             a1_1: '',
-            a2_3: '',
+            
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleOptionChange = this.handleOptionChange.bind(this);
     }
     handleChange(event) {
         const val = event.target.name
-        console.log(val);
+        //console.log(val);\
         this.setState({ [val]: event.target.value });
+        console.log(this.state);
     }
     handleOptionChange(event) {
         this.setState({
@@ -31,14 +33,16 @@ class BaselineForm extends Component {
 
     handleSubmit(event) {
         //alert('Form submitted: ' + TEMP_ID);
-        this.writeData(TEMP_ID);
+        console.log(this.state);
+        this.writeData(TEMP_ID, this.answers);
         event.preventDefault();
-
+        
         this.props.submitSurvey();
     }
-    writeData(userID) {
+    writeData(userID, ans_) {
         const db = getDatabase();
-        set(ref(db, 'users/' + userID), this.state);
+        //console.log('Writing:\n' + this.state);
+        set(ref(db, 'users/' + userID + "/Baseline"), this.state);
     }
     render() {
 
@@ -48,6 +52,7 @@ class BaselineForm extends Component {
                     <div className="md:grid md:grid-cols-2 md:gap-6">
 
                         <div className="mt-5 md:mt-0 md:col-span-2">
+                            <div>{this.props.id}</div>
                             <form
                                 onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }}
                                 onSubmit={this.handleSubmit}
@@ -195,6 +200,7 @@ class BaselineForm extends Component {
                                         <RadioGrid
                                             name="q3_5"
                                             question="Please rate the extent to which you feel the following feelings right now: "
+                                            answers={new Map()}
                                             options={[
                                                 { text: "1\nNot at all" },
                                                 { text: "2" },
@@ -262,6 +268,7 @@ class BaselineForm extends Component {
                                             onAnswerChangeFTB={(ans) => this.setState({ a3_4FTB: ans })} />
                                         <RadioGrid
                                             name="q3_7"
+                                            answers={new Map()}
                                             question="Everyone experiences painful situations at some point in their lives. Such experiences may include headaches, tooth pain, joint or muscle pain. People are often exposed to situations that may cause pain such as illness, injury, dental procedures or surgery."
                                             moreText="We are interested in the types of thoughts and feelings that you have when you are in pain. Listed below are thirteen statements describing different thoughts and feelings that may be associated with pain. Using the following scale, please indicate the degree to which you have these thoughts and feelings when you are experiencing pain."
                                             options={[
@@ -287,7 +294,7 @@ class BaselineForm extends Component {
                                                 { num: "12", text: "There's nothing I can do to reduce the intensity of the pain." },
                                                 { num: "13", text: "I wonder whether something serious may happen." },
                                             ]}
-                                            onAnswerChange={(ans) => this.setState({ a3_5: ans })}
+                                            onAnswerChange={(ans) => this.setState({ a3_7: ans })}
                                         />
                                     </div>
 

@@ -1,19 +1,23 @@
 import { Component } from "react";
 
 export default class RadioGrid extends Component {
+    
     constructor(props) {
         super(props);
+        this.answers = this.props.answers
         this.handleChange = this.handleChange.bind(this);
         this.handleChangeFTB = this.handleChangeFTB.bind(this);
         this.state = { answer: '' };
     }
     handleChange(e) {
-        this.props.onAnswerChange(e.target.value);
+        this.answers.set(e.target.name,e.target.value);
+        this.props.onAnswerChange(this.answers);
     }
     handleChangeFTB(e) {
         this.props.onAnswerChangeFTB(e.target.value);
     }
     render() {
+        
         const options = this.props.options;
         const subQuestions = this.props.subQuestions;
         return (
