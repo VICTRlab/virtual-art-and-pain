@@ -12,10 +12,10 @@ let unityContext;
 
 export default function Tutorial(props) {
     const [unityContext, setUnityContext] = useState(typeof window !== undefined ? new UnityContext({
-        loaderUrl: "Tutorial/Build/Tutorial.loader.js",
-        dataUrl: "Tutorial/Build/Tutorial.data",
-        frameworkUrl: "Tutorial/Build/Tutorial.framework.js",
-        codeUrl: "Tutorial/Build/Tutorial.wasm",
+        loaderUrl: "Build/Build/Build.loader.js",
+        dataUrl: "Build/Build/Build.data",
+        frameworkUrl: "Build/Build/Build.framework.js",
+        codeUrl: "Build/Build/Build.wasm",
     }) : null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [progression, setProgression] = useState(0);
