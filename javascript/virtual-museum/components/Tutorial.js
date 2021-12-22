@@ -35,7 +35,10 @@ export default function Tutorial(props) {
                 setIsLoaded(true);
                 unityContext.setFullscreen(true);
             });
-            unityContext.on("quitted", function () { });
+            unityContext.on("quitted", function () { 
+                console.log("DONE")
+                props.submitSurvey();
+            });
         }
     }, []);
 
