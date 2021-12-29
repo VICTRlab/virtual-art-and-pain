@@ -19,6 +19,10 @@ export default function Tutorial(props) {
     }) : null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [progression, setProgression] = useState(0);
+
+    const [isGameOver, setIsGameOver] = useState(false);
+    //const [userName, setUserName] = useState("");
+    //const [score, setScore] = useState(0);
     useEffect(function () {
         if (typeof window !== undefined) {
             unityContext.send("GameManager", "SetUUID", props.uuid);
@@ -35,17 +39,16 @@ export default function Tutorial(props) {
                 setIsLoaded(true);
                 unityContext.setFullscreen(true);
             });
-            unityContext.on("quitted", function () { 
-                console.log("DONE")
+            unityContext.on("quitted", function () {
+
+            });
+            unityContext.on("GameOver", function (userName, score) {
+                console.log("GameOver react event invoked")
                 props.submitSurvey();
             });
         }
     }, []);
 
-    function makeFullScreen() {
-        unityContext.setFullscreen(true);
-
-    }
     return (
         <div className='flex flex-col'>
             {!isLoaded &&
@@ -55,12 +58,11 @@ export default function Tutorial(props) {
 
                 </>
             }
-            {typeof window !== undefined && unityContext !== null &&
+            {isGameOver !== true && typeof window !== undefined && unityContext !== null &&
                 <Unity
                     unityContext={unityContext}
                     matchWebGLToCanvasSize={true}
                     style={{ width: "100%", visibility: isLoaded ? "visible" : "hidden" }}
-
                 />
             }
         </div>
