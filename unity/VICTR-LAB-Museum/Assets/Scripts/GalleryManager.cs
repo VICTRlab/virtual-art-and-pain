@@ -145,7 +145,7 @@ public class GalleryManager : MonoBehaviour
 
             if (startTimer)
             {
-                timer = 10.0;
+                timer = 600.0;
                 startTimer = false;
             }
             else
@@ -175,7 +175,7 @@ public class GalleryManager : MonoBehaviour
                     endTextObj.SetActive(true);
                     endPanelObj.SetActive(true);
                     secondTimerOn = true;
-                    timer = 5.0;
+                    timer = 15.0;
                 }
                 else
                 {
