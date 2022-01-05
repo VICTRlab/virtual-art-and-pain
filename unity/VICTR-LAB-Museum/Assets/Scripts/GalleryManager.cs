@@ -87,9 +87,19 @@ public class GalleryManager : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
             GameObject obj = hit.collider.gameObject;
-            //Debug.Log(obj.name);
+            double minutes = Mathf.FloorToInt((float)timer / 60);
+            double seconds = Mathf.FloorToInt((float)timer % 60);
+            string curTime = string.Format("{0:00}:{1:00}", minutes, seconds);
+            Debug.Log("Non-painting " + curTime);
+            var gObj = GameObject.Find("FirstPerson-AIO");
+            if (gObj) {
+                var pos = gObj.transform.position;
+                Debug.Log(pos);
+            }
+            //Debug.Log(pos);
             if (obj.name.StartsWith("CompFrame"))
             {
+                Debug.Log("Viewing CF: "+  obj.name + " " + curTime);
                 turnOnHint.SetActive(true);
                 GameObject painting = obj.transform.GetChild(0).gameObject;
                 GameObject myText = painting.transform.GetChild(0).gameObject;
