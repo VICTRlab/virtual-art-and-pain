@@ -4,12 +4,16 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using TMPro;
 using System.Runtime.InteropServices;
+using Newtonsoft.Json;
+
 public class GalleryManager : MonoBehaviour
 {
 
     [DllImport("__Internal")]
-    private static extern void GameOver();
-   
+    private static extern void GameOver(string data);
+
+
+    Dictionary<double, (string, string, string)> timeMap = new Dictionary<double, (string, string, string)>();
 
     public GameObject welcomeTextObj;
     public GameObject welcomePanelObj;
@@ -41,6 +45,7 @@ public class GalleryManager : MonoBehaviour
     public GameObject endPanelObj;
     void Start()
     {
+        timeMap.Clear();
         startTimer = true;
         secondTimerOn = false;
         textOn = false;
@@ -97,7 +102,7 @@ public class GalleryManager : MonoBehaviour
                 Debug.Log(pos+ " " + curTime);
             }
             //Debug.Log(pos);
-            if (obj.name.StartsWith("CompFrame"))
+            if (obj.name.StartsWith("CompFrame") && hit.distance <= 15)
             {
                 Debug.Log("Viewing CF: "+  obj.name + " " + curTime);
                 turnOnHint.SetActive(true);
@@ -106,6 +111,7 @@ public class GalleryManager : MonoBehaviour
                 //string db = myText.GetComponent<TMPro.TextMeshProUGUI>().text;
                 //Debug.Log(db);
                 //paintingText = myText.GetComponent<Text>(); 
+                timeMap.Add(timer, (gObj.transform.position.ToString(), obj.name, obj.transform.position.ToString()));
                 if (Input.GetKeyDown(KeyCode.I))
                 {
                     if (textOn)
@@ -155,7 +161,7 @@ public class GalleryManager : MonoBehaviour
 
             if (startTimer)
             {
-                timer = 600.0;
+                timer = 18;
                 startTimer = false;
             }
             else
@@ -169,8 +175,10 @@ public class GalleryManager : MonoBehaviour
                     if (minutes <= 0 && seconds <= 0)
                     {
 #if UNITY_WEBGL == true && UNITY_EDITOR == false
-                        GameOver();
+                            GameOver(JsonConvert.SerializeObject(timeMap, Formatting.Indented));
 #endif
+
+                        timeMap.Clear();
                         Application.Quit();
                     }
                     else
@@ -197,6 +205,7 @@ public class GalleryManager : MonoBehaviour
         }
 
     }
+
     void controlOffHint()
     {
         if (textOn)
@@ -213,13 +222,16 @@ public class GalleryManager : MonoBehaviour
         int layerMask = 1 << 8;
         layerMask = ~layerMask;
         RaycastHit hit;
+   
         var ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
         if (Physics.Raycast(ray, out hit))
         {
+            Debug.Log(hit.distance);
             GameObject obj = hit.collider.gameObject;
             //Debug.Log(obj.name);
-            if (obj.name.StartsWith("CompFrame"))
+            if (obj.name.StartsWith("CompFrame") && hit.distance <= 2)
             {
+               
                 GameObject painting = obj.transform.GetChild(0).gameObject;
                 GameObject text = painting.transform.GetChild(0).gameObject;
                 //Debug.Log(text.name);

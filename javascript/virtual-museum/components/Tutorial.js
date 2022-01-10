@@ -43,8 +43,8 @@ export default function Tutorial(props) {
 
             });
             unityContext.on("GameOver", function (userName, score) {
-                console.log("GameOver react event invoked")
-                props.submitSurvey();
+                console.log("GameOver react event invoked" + " " + userName + " " + score)
+                // props.submitSurvey();
             });
         }
     }, []);
