@@ -94,7 +94,7 @@ public class GalleryManager : MonoBehaviour
             var gObj = GameObject.Find("FirstPerson-AIO");
             if (gObj) {
                 var pos = gObj.transform.position;
-                Debug.Log(pos);
+                Debug.Log(pos+ " " + curTime);
             }
             //Debug.Log(pos);
             if (obj.name.StartsWith("CompFrame"))
