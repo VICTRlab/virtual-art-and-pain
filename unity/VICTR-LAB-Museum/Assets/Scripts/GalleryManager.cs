@@ -13,7 +13,7 @@ public class GalleryManager : MonoBehaviour
     private static extern void GameOver(string data);
 
 
-    Dictionary<double, (string, string, string)> timeMap = new Dictionary<double, (string, string, string)>();
+    Dictionary<string, (string, string, string)> timeMap = new Dictionary<string, (string, string, string)>();
 
     public GameObject welcomeTextObj;
     public GameObject welcomePanelObj;
@@ -108,10 +108,11 @@ public class GalleryManager : MonoBehaviour
                 turnOnHint.SetActive(true);
                 GameObject painting = obj.transform.GetChild(0).gameObject;
                 GameObject myText = painting.transform.GetChild(0).gameObject;
-                //string db = myText.GetComponent<TMPro.TextMeshProUGUI>().text;
-                //Debug.Log(db);
-                //paintingText = myText.GetComponent<Text>(); 
-                timeMap.Add(timer, (gObj.transform.position.ToString(), obj.name, obj.transform.position.ToString()));
+                
+                if(!timeMap.ContainsKey(""+minutes+" "+seconds)) {
+                    timeMap.Add(minutes+" "+seconds, (gObj.transform.position.ToString(), obj.name, obj.transform.position.ToString()));    
+                }
+                
                 if (Input.GetKeyDown(KeyCode.I))
                 {
                     if (textOn)
@@ -161,7 +162,7 @@ public class GalleryManager : MonoBehaviour
 
             if (startTimer)
             {
-                timer = 18;
+                timer = 60;
                 startTimer = false;
             }
             else
@@ -193,7 +194,7 @@ public class GalleryManager : MonoBehaviour
                     endTextObj.SetActive(true);
                     endPanelObj.SetActive(true);
                     secondTimerOn = true;
-                    timer = 15.0;
+                    timer = 10.0;
                 }
                 else
                 {
