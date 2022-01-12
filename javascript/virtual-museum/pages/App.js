@@ -38,9 +38,8 @@ export default function App() {
             {finishWelcome === true && finishBaseline === false &&      (<BaselineForm submitSurvey={() => {setFinishBaseline(true)}}/>)}
             {finishBaseline === true && finishSocialConn === false &&   (<SocialConnectPrime submitSurvey={() => { setFinishSocialConn(true) }} />)}
             {finishSocialConn === true && finishTutorial === false && (<Tutorial uuid={uuid} submitSurvey={() => { setFinishTutorial(true) }}/>)}
+            {finishTutorial === true && finishOutcome === false && (<OutcomeForm  submitSurvey={() => { setFinishOutcome(true) }}/>)}
             
-            {finishTutorial === true && finishMuseum === false && (<Tutorial uuid={uuid} submitSurvey={() => { setFinishMuseum(true) }}/>)}
-            {finishMuseum === true && finishOutcome === false && <OutcomeForm outcomeCount={2} submitSurvey={() => { setFinishOutcome(true) }} />}
         </div>
     );
 }
