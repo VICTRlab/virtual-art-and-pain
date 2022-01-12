@@ -6,7 +6,7 @@ import RadioQuestion from "./RadioQuestion";
 import RadioGroup from "./RadioGroup";
 import RadioGrid from "./RadioGrid";
 import TextAreaWithWordLimit from "./TextAreaWithWordLimit";
-const TEMP_ID = "AABBCC"
+const TEMP_ID = "AABBCC" + Date.now();
 class BaselineForm extends Component {
     constructor(props) {
         super(props);

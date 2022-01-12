@@ -1,5 +1,6 @@
 import Unity, { UnityContext } from "react-unity-webgl";
 import { useState, useEffect } from "react";
+import { getDatabase, ref, set } from "firebase/database";
 import Loading from "./Loading";
 /*const unityContext2 = new UnityContext({
     loaderUrl: "Tutorial/Build/Tutorial.loader.js",
@@ -9,6 +10,7 @@ import Loading from "./Loading";
 });*/
 
 let unityContext;
+const TEMP_ID = "TUT";
 
 export default function Tutorial(props) {
     const [unityContext, setUnityContext] = useState(typeof window !== undefined ? new UnityContext({
@@ -23,6 +25,18 @@ export default function Tutorial(props) {
     const [isGameOver, setIsGameOver] = useState(false);
     //const [userName, setUserName] = useState("");
     //const [score, setScore] = useState(0);
+    const cleanupAndExit = (data) => {
+        const dstr = data.toString();
+        const remPer = dstr.replaceAll('.', ' ');
+        const jsonData = JSON.parse(remPer);
+        console.log(jsonData);
+        writeData(TEMP_ID, jsonData);
+        props.submitSurvey();
+    }
+    const writeData = (userID, data) => {
+        const db = getDatabase();
+        set(ref(db, 'users/' + userID + "/Museum"), data);
+    }
     useEffect(function () {
         if (typeof window !== undefined) {
             unityContext.send("GameManager", "SetUUID", props.uuid);
@@ -42,9 +56,10 @@ export default function Tutorial(props) {
             unityContext.on("quitted", function () {
 
             });
-            unityContext.on("GameOver", function (userName, score) {
-                console.log("GameOver react event invoked" + " " + userName + " " + score)
-                // props.submitSurvey();
+            unityContext.on("GameOver", function (data) {
+                console.log("GameOver react event invoked" + " " + data);
+                cleanupAndExit(data)
+                
             });
         }
     }, []);
