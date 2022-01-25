@@ -29,6 +29,7 @@ export default function Tutorial(props) {
         console.log(data);
         const dstr = data.toString();
         const remPer = dstr.replaceAll('.', ' ');
+        console.log(remPer)
         const jsonData = JSON.parse(remPer);
         console.log(jsonData);
         writeData(TEMP_ID, jsonData);

@@ -5,12 +5,13 @@ using UnityEngine.UI;
 using TMPro;
 using System.Runtime.InteropServices;
 using Newtonsoft.Json;
+using System.Linq;
 
 public class GalleryManager : MonoBehaviour
 {
     private class Payload {
-        public double distance = 0.0;
-        public double time = 0.0;
+        public int distance = 0;
+        public int time = 0;
         public int clicks = 0; 
     }
 
@@ -61,12 +62,25 @@ public class GalleryManager : MonoBehaviour
         //GameObject[] allGameObjects = GameObject.FindGameObjectsWithTag("Untagged");  //returns GameObject[]
         Object[] allGameObjects = GameObject.FindObjectsOfType(typeof(MonoBehaviour));
         Debug.Log(allGameObjects.Length);
-        foreach(Object go in allGameObjects) {
-            if(go.name.StartsWith("CompFrame")) {
-                objectMap.Add(go.name,new Payload());
-            }
+
+        foreach (int value in Enumerable.Range(1, 20))
+        {
+            objectMap.Add("CompFrame (" + value + ")", new Payload());
         }
+        //foreach (Object go in allGameObjects) {
+        //    Debug.Log("Line 65 ");
+        //    if(go.name.StartsWith("CompFrame")) {
+        //        Debug.Log("Line 67" + go.name);
+        //        objectMap.Add(go.name,new Payload());
+        //    }
+        //}
         objectMap.Add("Other", new Payload());
+
+        Debug.Log("TEST");
+        foreach(string key in objectMap.Keys)
+        {
+            Debug.Log("Key: " + key);
+        }
         listNum = -1;
 
         //turnOffHint = GameObject.Find("turnOffHint");
@@ -110,7 +124,12 @@ public class GalleryManager : MonoBehaviour
             //Debug.Log(pos);
             if (obj.name.StartsWith("CompFrame") && hit.distance <= 15)
             {
-                
+
+                foreach (string key in objectMap.Keys)
+                {
+                    Debug.Log("Key: " + key);
+                }
+
                 //Debug.Log("Viewing CF: "+  obj.name + " " + curTime);
                 turnOnHint.SetActive(true);
                 GameObject painting = obj.transform.GetChild(0).gameObject;
@@ -118,7 +137,8 @@ public class GalleryManager : MonoBehaviour
                 
                 if(!timeMap.ContainsKey(""+minutes+" "+seconds)) {
                     //objectMap.Add(obj.name, objectMap);
-                    
+
+                    Debug.Log("Line 122 - KEY: " + obj.name);
                     objectMap[obj.name].time += 1;
                     Debug.Log("Timer for " + obj.name + ": " + objectMap[obj.name].time);
                     timeMap.Add(minutes+" "+seconds, (gObj.transform.position.ToString(), obj.name, obj.transform.position.ToString()));    
@@ -126,6 +146,7 @@ public class GalleryManager : MonoBehaviour
                 
                 if (Input.GetKeyDown(KeyCode.I))
                 {
+                    Debug.Log("Line 130 - KEY: " + obj.name);
                     objectMap[obj.name].clicks += 1;
                     Debug.Log("Clicks for " + obj.name + ": " + objectMap[obj.name].clicks);
                     if (textOn)
@@ -188,6 +209,7 @@ public class GalleryManager : MonoBehaviour
                 {
                     if (minutes <= 0 && seconds <= 0)
                     {
+                        Debug.Log("WEEEE " + JsonConvert.SerializeObject(objectMap, Formatting.Indented));
 #if UNITY_WEBGL == true && UNITY_EDITOR == false
                             GameOver(JsonConvert.SerializeObject(objectMap, Formatting.Indented));
 #endif
