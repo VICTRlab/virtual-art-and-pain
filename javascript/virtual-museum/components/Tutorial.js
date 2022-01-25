@@ -26,6 +26,7 @@ export default function Tutorial(props) {
     //const [userName, setUserName] = useState("");
     //const [score, setScore] = useState(0);
     const cleanupAndExit = (data) => {
+        console.log(data);
         const dstr = data.toString();
         const remPer = dstr.replaceAll('.', ' ');
         const jsonData = JSON.parse(remPer);

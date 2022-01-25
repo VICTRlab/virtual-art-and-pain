@@ -8,12 +8,19 @@ using Newtonsoft.Json;
 
 public class GalleryManager : MonoBehaviour
 {
+    private class Payload {
+        public double distance = 0.0;
+        public double time = 0.0;
+        public int clicks = 0; 
+    }
 
     [DllImport("__Internal")]
     private static extern void GameOver(string data);
 
 
     Dictionary<string, (string, string, string)> timeMap = new Dictionary<string, (string, string, string)>();
+    // Painting -> (distance, time, )
+    Dictionary<string, Payload> objectMap = new Dictionary<string, Payload>();
 
     public GameObject welcomeTextObj;
     public GameObject welcomePanelObj;
@@ -50,21 +57,20 @@ public class GalleryManager : MonoBehaviour
         secondTimerOn = false;
         textOn = false;
         objOn = null;
-        frames = new List<GameObject>();
-        frames.Add(GameObject.Find("CompFrame (7)"));
-        frames.Add(GameObject.Find("CompFrame (8)"));
-
-        foreach (GameObject frame in frames)
-        {
-            GameObject painting = frame.transform.GetChild(0).gameObject;
-            //Debug.Log(frame.name);
-            GameObject text = painting.transform.GetChild(0).gameObject;
-            text.SetActive(false);
+        
+        //GameObject[] allGameObjects = GameObject.FindGameObjectsWithTag("Untagged");  //returns GameObject[]
+        Object[] allGameObjects = GameObject.FindObjectsOfType(typeof(MonoBehaviour));
+        Debug.Log(allGameObjects.Length);
+        foreach(Object go in allGameObjects) {
+            if(go.name.StartsWith("CompFrame")) {
+                objectMap.Add(go.name,new Payload());
+            }
         }
+        objectMap.Add("Other", new Payload());
         listNum = -1;
 
         //turnOffHint = GameObject.Find("turnOffHint");
-        Debug.Log("@@@start@@@@");
+        //Debug.Log("@@@start@@@@");
         turnOnHint = GameObject.Find("turnOnHint");
         welcomeTextObj = GameObject.Find("Welcome");
         welcomePanelObj = GameObject.Find("Panel");
@@ -95,26 +101,33 @@ public class GalleryManager : MonoBehaviour
             double minutes = Mathf.FloorToInt((float)timer / 60);
             double seconds = Mathf.FloorToInt((float)timer % 60);
             string curTime = string.Format("{0:00}:{1:00}", minutes, seconds);
-            Debug.Log("Non-painting " + curTime);
+            //Debug.Log("Non-painting " + curTime);
             var gObj = GameObject.Find("FirstPerson-AIO");
             if (gObj) {
                 var pos = gObj.transform.position;
-                Debug.Log(pos+ " " + curTime);
+               // Debug.Log(pos+ " " + curTime);
             }
             //Debug.Log(pos);
             if (obj.name.StartsWith("CompFrame") && hit.distance <= 15)
             {
-                Debug.Log("Viewing CF: "+  obj.name + " " + curTime);
+                
+                //Debug.Log("Viewing CF: "+  obj.name + " " + curTime);
                 turnOnHint.SetActive(true);
                 GameObject painting = obj.transform.GetChild(0).gameObject;
                 GameObject myText = painting.transform.GetChild(0).gameObject;
                 
                 if(!timeMap.ContainsKey(""+minutes+" "+seconds)) {
+                    //objectMap.Add(obj.name, objectMap);
+                    
+                    objectMap[obj.name].time += 1;
+                    Debug.Log("Timer for " + obj.name + ": " + objectMap[obj.name].time);
                     timeMap.Add(minutes+" "+seconds, (gObj.transform.position.ToString(), obj.name, obj.transform.position.ToString()));    
                 }
                 
                 if (Input.GetKeyDown(KeyCode.I))
                 {
+                    objectMap[obj.name].clicks += 1;
+                    Debug.Log("Clicks for " + obj.name + ": " + objectMap[obj.name].clicks);
                     if (textOn)
                     {
                         Debug.Assert(objOn != null);
@@ -176,7 +189,7 @@ public class GalleryManager : MonoBehaviour
                     if (minutes <= 0 && seconds <= 0)
                     {
 #if UNITY_WEBGL == true && UNITY_EDITOR == false
-                            GameOver(JsonConvert.SerializeObject(timeMap, Formatting.Indented));
+                            GameOver(JsonConvert.SerializeObject(objectMap, Formatting.Indented));
 #endif
 
                         timeMap.Clear();
@@ -189,7 +202,7 @@ public class GalleryManager : MonoBehaviour
                 }
                 else if (minutes <= 0 && seconds <= 0)
                 {
-                    Debug.Log("TIMER REACHED");
+                    //Debug.Log("TIMER REACHED");
                     timeText.text = "00:00";
                     endTextObj.SetActive(true);
                     endPanelObj.SetActive(true);
@@ -206,7 +219,6 @@ public class GalleryManager : MonoBehaviour
         }
 
     }
-
     void controlOffHint()
     {
         if (textOn)
@@ -217,58 +229,5 @@ public class GalleryManager : MonoBehaviour
         {
             turnOffHint.SetActive(false);
         }
-    }
-    void controlOnHint()
-    {
-        int layerMask = 1 << 8;
-        layerMask = ~layerMask;
-        RaycastHit hit;
-   
-        var ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
-        if (Physics.Raycast(ray, out hit))
-        {
-            Debug.Log(hit.distance);
-            GameObject obj = hit.collider.gameObject;
-            //Debug.Log(obj.name);
-            if (obj.name.StartsWith("CompFrame") && hit.distance <= 2)
-            {
-               
-                GameObject painting = obj.transform.GetChild(0).gameObject;
-                GameObject text = painting.transform.GetChild(0).gameObject;
-                //Debug.Log(text.name);
-                if (Input.GetKeyDown(KeyCode.I))
-                {
-                    if (textOn)
-                    {
-                        Debug.Assert(objOn != null);
-                        if (objOn.Equals(obj.name))//looking at object with on text, so turn text off text
-                        {
-                            textOn = false;
-                            objOn = null;
-                            text.SetActive(false);
-                        }
-                        else // looking at obj without on text, but another object has on text, so turn the other text off, turn this text on.
-                        {
-                            //textOn = true;
-                            GameObject otherPainting = GameObject.Find(objOn).transform.GetChild(0).gameObject;
-                            GameObject otherText = otherPainting.transform.GetChild(0).gameObject;
-                            otherText.SetActive(false);
-                            objOn = obj.name;
-                            text.SetActive(true);
-                        }
-                    }
-                    else if (!textOn)
-                    {
-                        textOn = true;
-                        objOn = obj.name;
-                        text.SetActive(true);
-                    }
-                }
-            }
-        }
-    }
-    void controlText()
-    {
-
     }
 }
