@@ -134,6 +134,146 @@ class OutcomeForm extends Component {
                                             ]}
                                             onAnswerChange={(ans) => this.setState({ a3_5: ans })}
                                         />
+                                        <RadioQuestion
+                                            name="q1_1"
+                                            question="Did you experience any pain relief during your museum visit?"
+                                            options={[{ text: "Yes" }, { text: "No" },]}
+                                            onAnswerChange={(ans) => this.setState({ a1_1: ans })}
+                                            onAnswerChangeFTB={(ans) => this.setState({ a1_1FTB: ans })} />
+                                        {this.state.a1_1 === 'Yes' &&
+                                            <RadioQuestion
+                                                name="q2_4"
+                                                question="If you answered Yes to the question above, then what percent pain relief did you experience?"
+                                                options={[
+                                                    { text: "0% No relief" }, 
+                                                    { text: "10%" }, 
+                                                    { text: "20%" }, 
+                                                    { text: "30%" }, 
+                                                    { text: "40%" }, 
+                                                    { text: "50%" },
+                                                    { text: "60%" },
+                                                    { text: "70%" },
+                                                    { text: "80%" },
+                                                    { text: "90%" },
+                                                    { text: "100% Complete Relief" },]}
+                                                onAnswerChange={(ans) => this.setState({ a1_1_2: ans })} />
+                                        }
+                                        <RadioGrid
+                                            name="q3_5_2"
+                                            answers={new Map()}
+                                            question=" The artwork in the museum made me feel"
+                                            options={[
+                                                { text: "Not at all\n1" },
+                                                { text: "2" },
+                                                { text: "Moderately\n3" },
+                                                { text: "4" },
+                                                { text: "Very Much\n5" },
+                                                { text: "Very Much\n5" },
+                                                { text: "Very Much\n5" },
+                                            ]}
+                                            subQuestions={[
+                                                { num: "1", text: "I feel like being around other people" },
+                                                { num: "2", text: "I feel like being alone" },
+                                                { num: "3", text: "I feel overly sensitive around others (e.g. my feelings are easily hurt)" },
+                                                { num: "4", text: "I feel connected to others" },
+                                                { num: "5", text: "I feel disconnected to others" },
+                                                { num: "6", text: "I feel in tune with the people around me" },
+                                                { num: "7", text: "I feel lonely" },
+                                                { num: "8", text: "I feel liked" },
+                                                { num: "9", text: "I feel outgoing and friendly" },
+                                                { num: "10", text: "I feel alone" },
+                                                { num: "11", text: "I feel isolated from others" },
+                                                { num: "12", text: "I feel shy" },
+                                            ]}
+                                            onAnswerChange={(ans) => this.setState({ a3_5: ans })}
+                                        />
+
+                                        <RadioQuestion
+                                            name="q1_2"
+                                            question="To which gender do you most identify?"
+                                            options={[{ text: "Female" }, { text: "Male" }, { text: "Non-binary/third gender" }, { text: "Prefer to self describe: ", fillIn: true }, { text: "Prefer not to answer" }]}
+                                            onAnswerChange={(ans) => this.setState({ a1_2: ans })}
+                                            onAnswerChangeFTB={(ans) => this.setState({ a1_2FTB: ans })} />
+
+                                        <FillinQuestion
+                                            name="q1_3"
+                                            question="What is your age?"
+                                            placeholder="Age"
+                                            onAnswerChange={(ans) => this.setState({ a1_3: ans })} />
+
+                                        <RadioQuestion name="q1_4"
+                                            question="Do you consider yourself do be Hispanic or Latinx? (Check one box)"
+                                            options={[{ text: "No" }, { text: "Yes" }, { text: "Unknown" }, { text: "Prefer not to answer" }]}
+                                            onAnswerChange={(ans) => this.setState({ a1_4: ans })}
+                                            onAnswerChangeFTB={(ans) => this.setState({ a1_4FTB: ans })} />
+                                        <RadioQuestion name="q1_6"
+                                            question="Education level (Select highest level attained)"
+                                            options={[
+                                                { text: "No high school diploma" },
+                                                { text: "High school graduate or GED" },
+                                                { text: "Some college, no degree" },
+                                                { text: "Occupational/technical/vocational program" },
+                                                { text: "Master's degree (e.g. M.A., M.S., M.B.A)" },
+                                                { text: "Professional school degree (e.g. M.D., D.D.S., D.V.M., J.D.)" }]}
+                                            onAnswerChange={(ans) => this.setState({ a1_6: ans })}
+                                            onAnswerChangeFTB={(ans) => this.setState({ a1_6FTB: ans })} />
+                                        <RadioQuestion name="q1_7"
+                                            question="Employment status"
+                                            options={[
+                                                { text: "Working now" },
+                                                { text: "Looking for work" },
+                                                { text: "Sick leave or maternity leave" },
+                                                { text: "Disabled due to pain, permenantly or temporarily" },
+                                                { text: "Disabled for reasons other than back pain" },
+                                                { text: "Student" },
+                                                { text: "Temporarily laid off" },
+                                                { text: "Retired" },
+                                                { text: "Keeping the house" },
+                                                { text: "Other, specify", fillIn: true },
+                                                { text: "Unknown" },
+                                            ]}
+                                            onAnswerChange={(ans) => this.setState({ a1_7: ans })}
+                                            onAnswerChangeFTB={(ans) => this.setState({ a1_7FTB: ans })} />
+                                            <RadioQuestion name="q2_3"
+                                            question="Has your health care provider diagnosed your pain condition? (Check one box)"
+                                            options={[
+                                                { text: "No" },
+                                                { text: "Yes" },
+
+                                            ]}
+                                            onAnswerChange={(ans) => this.setState({ a2_3: ans })}
+                                            onAnswerChangeFTB={(ans) => this.setState({ a2_3FTB: ans })} />
+                                        {this.state.a2_3 === 'Yes' &&
+                                            <FillinQuestion
+                                                name="q2_4"
+                                                question="If yes, what is the diagnosis or diagnoses for your pain condition or conditions? (write in your answer)"
+                                                placeholder=""
+                                                onAnswerChange={(ans) => this.setState({ a2_4: ans })} />
+                                        }
+                                         <RadioQuestion name="q1_8"
+                                            question="In general, would you say your health is...? (Check one box below)"
+                                            options={[
+                                                { text: "Excellent" },
+                                                { text: "Very good" },
+                                                { text: "Good" },
+                                                { text: "Fair" },
+                                                { text: "Poor" }
+                                            ]}
+                                            onAnswerChange={(ans) => this.setState({ a1_8: ans })}
+                                            onAnswerChangeFTB={(ans) => this.setState({ a1_8FTB: ans })} />
+
+                                        <RadioQuestion name="q1_10"
+                                            question="How often did you visit an art museum last year?"
+                                            options={[
+                                                { text: "None" },
+                                                { text: "1 times" },
+                                                { text: "2 times" },
+                                                { text: "3 times" },
+                                                { text: "More than 3 times" },
+
+                                            ]}
+                                            onAnswerChange={(ans) => this.setState({ a1_10: ans })}
+                                            onAnswerChangeFTB={(ans) => this.setState({ a1_10FTB: ans })} />
                                     </div>
 
                                 </div>
