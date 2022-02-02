@@ -11,14 +11,14 @@ import Loading from "./Loading";
 
 let unityContext;
 const TEMP_ID = "TUT";
-
-export default function Tutorial(props) {
-    const [unityContext, setUnityContext] = useState(typeof window !== undefined ? new UnityContext({
-        loaderUrl: "Build/Build/Build.loader.js",
+/*
+loaderUrl: "Build/Build/Build.loader.js",
         dataUrl: "Build/Build/Build.data",
         frameworkUrl: "Build/Build/Build.framework.js",
         codeUrl: "Build/Build/Build.wasm",
-    }) : null);
+*/
+export default function Tutorial(props) {
+    const [unityContext, setUnityContext] = useState(typeof window !== undefined ? new UnityContext(props.museumBuild) : null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [progression, setProgression] = useState(0);
 
@@ -27,6 +27,10 @@ export default function Tutorial(props) {
     //const [score, setScore] = useState(0);
     const cleanupAndExit = (data) => {
         console.log(data);
+        if(data === "TUTORIAL COMPLETED") {
+            props.submitSurvey();
+            return;
+        }
         const dstr = data.toString();
         const remPer = dstr.replaceAll('.', ' ');
         console.log(remPer)

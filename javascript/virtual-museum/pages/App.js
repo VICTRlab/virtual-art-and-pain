@@ -28,7 +28,18 @@ export default function App() {
     function makeFullScreen() {
         //setFullScreen(true);
     }
-    
+    const tutorial = {
+        loaderUrl: "Tutorial/Build/Tutorial.loader.js",
+        dataUrl: "Tutorial/Build/Tutorial.data",
+        frameworkUrl: "Tutorial/Build/Tutorial.framework.js",
+        codeUrl: "Tutorial/Build/Tutorial.wasm",
+    }
+    const museum = {
+        loaderUrl: "Build/Build/Build.loader.js",
+        dataUrl: "Build/Build/Build.data",
+        frameworkUrl: "Build/Build/Build.framework.js",
+        codeUrl: "Build/Build/Build.wasm",
+    }
     return (
         <div>
             <div>{router.query.id}</div>
@@ -37,8 +48,9 @@ export default function App() {
             {finishWelcome === false &&                                 (<Welcome submitSurvey={() => {setFinishWelcome(true)}} />)}
             {finishWelcome === true && finishBaseline === false &&      (<BaselineForm submitSurvey={() => {setFinishBaseline(true)}}/>)}
             {finishBaseline === true && finishSocialConn === false &&   (<SocialConnectPrime submitSurvey={() => { setFinishSocialConn(true) }} />)}
-            {finishSocialConn === true && finishTutorial === false && (<Tutorial uuid={uuid} submitSurvey={() => { setFinishTutorial(true) }}/>)}
-            {finishTutorial === true && finishOutcome === false && (<OutcomeForm  submitSurvey={() => { setFinishOutcome(true) }}/>)}
+            {finishSocialConn === true && finishTutorial === false && (<Tutorial museumBuild = {tutorial} uuid={uuid} submitSurvey={() => { setFinishTutorial(true) }}/>)}
+            {finishTutorial === true && finishMuseum === false && (<Tutorial museumBuild = {museum} uuid={uuid} submitSurvey={() => { setFinishMuseum(true) }}/>)}
+            {finishMuseum === true && finishOutcome === false && (<OutcomeForm  submitSurvey={() => { setFinishOutcome(true) }}/>)}
             
         </div>
     );
