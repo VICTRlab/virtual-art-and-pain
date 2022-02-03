@@ -19,10 +19,10 @@ export default class Welcome extends Component {
         event.preventDefault();
         if(confirm('Are you sure you want to submit? ') == true) {
             //this.setState({ startTime: new Date(Date.now()).toISOString() })
-            this.writeData(this.props.userID, { 'Start Time': new Date(Date.now()).toISOString() });
+            this.writeData(this.props.userID, { 'Start Time': new Date(Date.now()).toISOString().substring(0,19) });
             this.props.submitSurvey();
         }
-        
+        //2022-02-03T09:14:31.183Z
     }
     render = () => {
         return (
