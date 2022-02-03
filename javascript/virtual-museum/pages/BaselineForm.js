@@ -11,7 +11,11 @@ class BaselineForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            a1_1: '',
+            a3_1: null,
+            a3_2: null,
+            a3_3: null,
+            a3_4: null,
+            a3_5: null,
             
         };
 
@@ -34,7 +38,16 @@ class BaselineForm extends Component {
     handleSubmit(event) {
         //alert('Form submitted: ' + TEMP_ID);
         console.log(this.state);
-        this.writeData(TEMP_ID, this.answers);
+        if (this.state.a3_1 === null ||
+            this.state.a3_2 === null ||
+            this.state.a3_3 === null ||
+            this.state.a3_3.size < 12 ||
+            this.state.a3_4 === null ||
+            this.state.a3_5 === null ) {
+                confirm('Please finish all questions before continuing.');
+                return;     
+            }
+        this.writeData(this.props.userID, this.state);
         event.preventDefault();
         
         this.props.submitSurvey();
@@ -42,7 +55,7 @@ class BaselineForm extends Component {
     writeData(userID, ans_) {
         const db = getDatabase();
         //console.log('Writing:\n' + this.state);
-        set(ref(db, 'users/' + userID + "/Baseline"), this.state);
+        set(ref(db, userID + "/Baseline"), this.state);
     }
     render() {
 
@@ -67,11 +80,6 @@ class BaselineForm extends Component {
                                                 <div className="border-t border-gray-300" />
                                             </div>
                                         </div>
-
-                                        
-
-                                       
-                                        
 
                                         <RadioGroup
                                             name="q3_1"
@@ -139,7 +147,7 @@ class BaselineForm extends Component {
                                                 { num: "11", text: "I feel isolated from others" },
                                                 { num: "12", text: "I feel shy" },
                                             ]}
-                                            onAnswerChange={(ans) => this.setState({ a3_5: ans })}
+                                            onAnswerChange={(ans) => this.setState({ a3_3: ans })}
                                         />
                                         <RadioGroup
                                             name="q3_3"
@@ -160,8 +168,8 @@ class BaselineForm extends Component {
                                                 { text: "9" },
                                                 { text: "10" },
                                             ]}
-                                            onAnswerChange={(ans) => this.setState({ a3_3: ans })}
-                                            onAnswerChangeFTB={(ans) => this.setState({ a3_3FTB: ans })} />
+                                            onAnswerChange={(ans) => this.setState({ a3_4: ans })}
+                                            onAnswerChangeFTB={(ans) => this.setState({ a3_4FTB: ans })} />
                                         <RadioGroup
                                             name="q3_4"
                                             question="What number best describes how, in the last week, pain has interfered with your enjoyment of life?"
@@ -181,14 +189,14 @@ class BaselineForm extends Component {
                                                 { text: "9" },
                                                 { text: "10" },
                                             ]}
-                                            onAnswerChange={(ans) => this.setState({ a3_4: ans })}
-                                            onAnswerChangeFTB={(ans) => this.setState({ a3_4FTB: ans })} />
+                                            onAnswerChange={(ans) => this.setState({ a3_5: ans })}
+                                            onAnswerChangeFTB={(ans) => this.setState({ a3_5FTB: ans })} />
                                         
                                     </div>
 
                                 </div>
 
-                                <input type="submit" value="SUBMIT" className='my-2 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500' />
+                                <input type="button" onClick={this.handleSubmit} value="SUBMIT" className='my-2 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500' />
                             </form>
                         </div>
                     </div>

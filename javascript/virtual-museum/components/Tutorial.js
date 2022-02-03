@@ -2,29 +2,14 @@ import Unity, { UnityContext } from "react-unity-webgl";
 import { useState, useEffect } from "react";
 import { getDatabase, ref, set } from "firebase/database";
 import Loading from "./Loading";
-/*const unityContext2 = new UnityContext({
-    loaderUrl: "Tutorial/Build/Tutorial.loader.js",
-    dataUrl: "Tutorial/Build/Tutorial.data",
-    frameworkUrl: "Tutorial/Build/Tutorial.framework.js",
-    codeUrl: "Tutorial/Build/Tutorial.wasm",
-});*/
 
 let unityContext;
-const TEMP_ID = "TUT";
-/*
-loaderUrl: "Build/Build/Build.loader.js",
-        dataUrl: "Build/Build/Build.data",
-        frameworkUrl: "Build/Build/Build.framework.js",
-        codeUrl: "Build/Build/Build.wasm",
-*/
+
 export default function Tutorial(props) {
     const [unityContext, setUnityContext] = useState(typeof window !== undefined ? new UnityContext(props.museumBuild) : null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [progression, setProgression] = useState(0);
-
     const [isGameOver, setIsGameOver] = useState(false);
-    //const [userName, setUserName] = useState("");
-    //const [score, setScore] = useState(0);
     const cleanupAndExit = (data) => {
         console.log(data);
         if(data === "TUTORIAL COMPLETED") {
@@ -36,17 +21,17 @@ export default function Tutorial(props) {
         console.log(remPer)
         const jsonData = JSON.parse(remPer);
         console.log(jsonData);
-        writeData(TEMP_ID, jsonData);
+        writeData(props.userID, jsonData);
         props.submitSurvey();
     }
     const writeData = (userID, data) => {
         const db = getDatabase();
-        set(ref(db, 'users/' + userID + "/Museum"), data);
+        if(props.type === 'Museum') {
+            set(ref(db, userID + "/" + props.type), data);
+        }
     }
     useEffect(function () {
         if (typeof window !== undefined) {
-            unityContext.send("GameManager", "SetUUID", props.uuid);
-
             unityContext.on("canvas", function (canvas) {
                 canvas.width = 1080;
                 canvas.height = 720;
@@ -76,7 +61,6 @@ export default function Tutorial(props) {
                 <>
                     <p>Loading: {Math.round(progression) * 100}%</p>
                     <Loading />
-
                 </>
             }
             {isGameOver !== true && typeof window !== undefined && unityContext !== null &&

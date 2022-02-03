@@ -7,7 +7,7 @@ import Tutorial from '../components/Tutorial';
 import Welcome from './Welcome';
 //import BlankMuseum from './BlankMuseum';
 import { useRouter } from 'next/router';
-//import { useState, useEffect } from "react";
+const userID = 'user' + Math.floor(Math.random()*2000000000); //yes i know bad design but gotta go fasttttttt
 export default function App() {
     const router = useRouter();
     console.log(router.query)
@@ -19,15 +19,7 @@ export default function App() {
     const [finishSocialConn, setFinishSocialConn] = useState(false);
     const [finishTutorial, setFinishTutorial] = useState(false);
     const [finishMuseum, setFinishMuseum] = useState(false);
-    //const [finishOutcome2, setFinishOutcome2] = useState(false);
-    //const [finishMuseum2, setFinishMuseum2] = useState(false);
-    //const [finishOutcome3, setFinishOutcome3] = useState(false);
 
-    const uuid = "someUniqueID"
-
-    function makeFullScreen() {
-        //setFullScreen(true);
-    }
     const tutorial = {
         loaderUrl: "Tutorial/Build/Tutorial.loader.js",
         dataUrl: "Tutorial/Build/Tutorial.data",
@@ -45,13 +37,12 @@ export default function App() {
             <div>{router.query.id}</div>
             <div>{router.query.group}</div>
 
-            {finishWelcome === false &&                                 (<Welcome submitSurvey={() => {setFinishWelcome(true)}} />)}
-            {finishWelcome === true && finishBaseline === false &&      (<BaselineForm submitSurvey={() => {setFinishBaseline(true)}}/>)}
-            {finishBaseline === true && finishSocialConn === false &&   (<SocialConnectPrime submitSurvey={() => { setFinishSocialConn(true) }} />)}
-            {finishSocialConn === true && finishTutorial === false && (<Tutorial museumBuild = {tutorial} uuid={uuid} submitSurvey={() => { setFinishTutorial(true) }}/>)}
-            {finishTutorial === true && finishMuseum === false && (<Tutorial museumBuild = {museum} uuid={uuid} submitSurvey={() => { setFinishMuseum(true) }}/>)}
-            {finishMuseum === true && finishOutcome === false && (<OutcomeForm  submitSurvey={() => { setFinishOutcome(true) }}/>)}
-            
+            {finishWelcome === false &&                                 (<Welcome userID={userID} submitSurvey={() => {setFinishWelcome(true)}} />)}
+            {finishWelcome === true && finishBaseline === false &&      (<BaselineForm userID={userID} submitSurvey={() => {setFinishBaseline(true)}}/>)}
+            {finishBaseline === true && finishSocialConn === false &&   (<SocialConnectPrime userID={userID} submitSurvey={() => { setFinishSocialConn(true) }} />)}
+            {finishSocialConn === true && finishTutorial === false && (<Tutorial type='Tutorial' userID={userID} museumBuild = {tutorial} submitSurvey={() => { setFinishTutorial(true) }}/>)}
+            {finishTutorial === true && finishMuseum === false && (<Tutorial type='Museum' userID={userID} museumBuild = {museum} submitSurvey={() => { setFinishMuseum(true) }}/>)}
+            {finishMuseum === true && finishOutcome === false && (<OutcomeForm  userID={userID} submitSurvey={() => { setFinishOutcome(true) }}/>)}
         </div>
     );
 }

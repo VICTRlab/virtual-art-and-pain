@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System.Runtime.InteropServices;
 public class TutorialManager : MonoBehaviour
 {
     public GameObject welcomeTextObj;
@@ -53,7 +54,8 @@ public class TutorialManager : MonoBehaviour
     {
         this.uuid = uuid;
     }
-
+    [DllImport("__Internal")]
+    private static extern void GameOver(string data);
     void Start()
     {
         listNum = -1;
@@ -128,8 +130,8 @@ public class TutorialManager : MonoBehaviour
     void Update()
     {
 
-        uuidTextObj = GameObject.Find("UUID");
-        uuidTextObj.GetComponent<Text>().text = uuid;
+        //uuidTextObj = GameObject.Find("UUID");
+        //uuidTextObj.GetComponent<Text>().text = uuid;
 
         squareInfoTextObj.transform.LookAt(Camera.main.transform);
         sphereInfoTextObj.transform.LookAt(Camera.main.transform);
@@ -306,6 +308,9 @@ public class TutorialManager : MonoBehaviour
             if (timer > waitTime)
             {
                 Debug.Log("Timer REACHED");
+#if UNITY_WEBGL == true && UNITY_EDITOR == false
+                GameOver("TUTORIAL COMPLETED");
+#endif
                 Application.Quit();
             }
         }

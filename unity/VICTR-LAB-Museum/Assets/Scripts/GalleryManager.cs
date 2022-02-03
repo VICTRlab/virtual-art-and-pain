@@ -62,7 +62,7 @@ public class GalleryManager : MonoBehaviour
         //GameObject[] allGameObjects = GameObject.FindGameObjectsWithTag("Untagged");  //returns GameObject[]
         Object[] allGameObjects = GameObject.FindObjectsOfType(typeof(MonoBehaviour));
         Debug.Log(allGameObjects.Length);
-
+        
         foreach (int value in Enumerable.Range(1, 20))
         {
             objectMap.Add("CompFrame (" + value + ")", new Payload());
@@ -125,11 +125,11 @@ public class GalleryManager : MonoBehaviour
             if (obj.name.StartsWith("CompFrame") && hit.distance <= 15)
             {
 
-                foreach (string key in objectMap.Keys)
+                 foreach (string key in objectMap.Keys)
                 {
                     Debug.Log("Key: " + key);
                 }
-
+    
                 //Debug.Log("Viewing CF: "+  obj.name + " " + curTime);
                 turnOnHint.SetActive(true);
                 GameObject painting = obj.transform.GetChild(0).gameObject;
@@ -137,8 +137,8 @@ public class GalleryManager : MonoBehaviour
                 
                 if(!timeMap.ContainsKey(""+minutes+" "+seconds)) {
                     //objectMap.Add(obj.name, objectMap);
-
-                    Debug.Log("Line 122 - KEY: " + obj.name);
+                    
+                     Debug.Log("Line 122 - KEY: " + obj.name);
                     objectMap[obj.name].time += 1;
                     Debug.Log("Timer for " + obj.name + ": " + objectMap[obj.name].time);
                     timeMap.Add(minutes+" "+seconds, (gObj.transform.position.ToString(), obj.name, obj.transform.position.ToString()));    
@@ -196,7 +196,7 @@ public class GalleryManager : MonoBehaviour
 
             if (startTimer)
             {
-                timer = 60;
+                timer = 600;
                 startTimer = false;
             }
             else
@@ -209,7 +209,6 @@ public class GalleryManager : MonoBehaviour
                 {
                     if (minutes <= 0 && seconds <= 0)
                     {
-                        Debug.Log("WEEEE " + JsonConvert.SerializeObject(objectMap, Formatting.Indented));
 #if UNITY_WEBGL == true && UNITY_EDITOR == false
                             GameOver(JsonConvert.SerializeObject(objectMap, Formatting.Indented));
 #endif

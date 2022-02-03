@@ -5,8 +5,8 @@ import TextAreaWithWordLimit from "./TextAreaWithWordLimit";
 import Timer from "./Timer";
 
 const TEMP_ID = "SCP"
-const WORD_LIMIT = 100
-const WORD_MIN = 80
+const WORD_LIMIT = 50
+const WORD_MIN = 40
 
 class SocialConnectPrime extends Component {
     constructor(props) {
@@ -28,7 +28,7 @@ class SocialConnectPrime extends Component {
 
     handleSubmit(event) {
         // alert('Form submitted: ' + TEMP_ID);
-        this.writeData(TEMP_ID);
+        this.writeData(this.props.userID, this.state);
         event.preventDefault();
         this.props.submitSurvey();
     }
@@ -43,9 +43,9 @@ class SocialConnectPrime extends Component {
     handleP1Done() {
         this.setState({ p1done: true });
     }
-    writeData(userID) {
+    writeData(userID, state) {
         const db = getDatabase();
-        set(ref(db, 'users/' + userID), this.state);
+        set(ref(db, userID + '/SCP'), state);
     }
     handleExpire() {
         this.setState({ timerExpired: true });
