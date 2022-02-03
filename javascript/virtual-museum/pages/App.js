@@ -20,6 +20,8 @@ export default function App() {
     const [finishTutorial, setFinishTutorial] = useState(false);
     const [finishMuseum, setFinishMuseum] = useState(false);
 
+    
+    
     const tutorial = {
         loaderUrl: "Tutorial/Build/Tutorial.loader.js",
         dataUrl: "Tutorial/Build/Tutorial.data",
@@ -27,10 +29,10 @@ export default function App() {
         codeUrl: "Tutorial/Build/Tutorial.wasm",
     }
     const museum = {
-        loaderUrl: "Build/Build/Build.loader.js",
-        dataUrl: "Build/Build/Build.data",
-        frameworkUrl: "Build/Build/Build.framework.js",
-        codeUrl: "Build/Build/Build.wasm",
+        loaderUrl: "Build2/Build/Build2.loader.js",
+        dataUrl: "Build2/Build/Build2.data",
+        frameworkUrl: "Build2/Build/Build2.framework.js",
+        codeUrl: "Build2/Build/Build2.wasm",
     }
     return (
         <div>

@@ -1,22 +1,30 @@
 import {Component} from 'react';
+import { getDatabase, ref, set } from "firebase/database";
 
 export default class Welcome extends Component {
     constructor(props) {
         super(props);
-        this.state = {         
+        this.state = {
+
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    handleSubmit(event) {
+    writeData = (userID, data) => {
+        const db = getDatabase();
+        set(ref(db, userID), data);
+    }
+    handleSubmit = (event) => {
         //this.writeData(TEMP_ID);
         event.preventDefault();
         if(confirm('Are you sure you want to submit? ') == true) {
+            //this.setState({ startTime: new Date(Date.now()).toISOString() })
+            this.writeData(this.props.userID, { 'Start Time': new Date(Date.now()).toISOString() });
             this.props.submitSurvey();
         }
         
     }
-    render() {
+    render = () => {
         return (
             <div className="my-5 md:col-span-3 md:w-2/3 mx-auto">
                 <div>

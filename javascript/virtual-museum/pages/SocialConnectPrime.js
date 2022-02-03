@@ -108,6 +108,7 @@ person? What is/was it about this person that made you feel seen, heard, and val
                                                     currentWordCount={this.state.currentWordCount}
                                                     setWordCount={(wordCount) => this.setState({ currentWordCount: wordCount })}
                                                     value=""
+                                                    onAnswerChange={(ans) => this.setState({ q1: ans })}
                                                 />
                                                 <Timer
                                                     expiryTimestamp={time}
@@ -141,6 +142,7 @@ did this person say or do that made you feel loved, cared for, and valued?"
                                                     min={WORD_MIN}
                                                     currentWordCount={this.state.currentWordCount}
                                                     setWordCount={(wordCount) => this.setState({ currentWordCount: wordCount })}
+                                                    onAnswerChange={(ans) => this.setState({ q2: ans })}
                                                     value=""
                                                 />
                                                 <Timer
