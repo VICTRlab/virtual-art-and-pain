@@ -5,6 +5,7 @@ import RadioQuestion from "./RadioQuestion";
 import RadioGroup from "./RadioGroup";
 import RadioGrid from "./RadioGrid";
 import SemanticDiff from "./SemanticDiff";
+import CheckboxQuestion from "./CheckboxQuestion";
 
 class OutcomeForm extends Component {
     constructor(props) {
@@ -225,6 +226,19 @@ class OutcomeForm extends Component {
                                             options={[{ text: "No" }, { text: "Yes" }, { text: "Unknown" }, { text: "Prefer not to answer" }]}
                                             onAnswerChange={(ans) => this.setState({ q8: ans })}
                                             onAnswerChangeFTB={(ans) => this.setState({ q8FTB: ans })} />
+                                        <CheckboxQuestion name="q9_1"
+                                            question="What race or races do you consider yourself to be? (check all groups that apply to you)"
+                                            options={[
+                                                { text: "White" },
+                                                { text: "Black or African American" },
+                                                { text: "American Indian or Alaska Native" },
+                                                { text: "Asian" },
+                                                { text: "Native Hawaiian or Pacific Islander" },
+                                                { text: "Unknown" },
+                                                { text: "Prefer not to answer" },
+                                            ]}
+                                            onAnswerChange={(ans) => this.setState({ q9: ans })}
+                                            onAnswerChangeFTB={(ans) => this.setState({ q9FTB: ans })} />
                                         <RadioQuestion name="q9"
                                             question="Education level (Select highest level attained)"
                                             options={[
