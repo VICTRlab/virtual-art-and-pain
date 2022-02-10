@@ -200,7 +200,7 @@ class OutcomeForm extends Component {
                                                 {num : "7"},
                                             ]}
                                             bounds = {[
-                                                { num: "1", left: "Negative about social the world", right: "Positive about social the world"},
+                                                { num: "1", left: "Negative about the social world", right: "Positive about the social world"},
                                                 { num: "2", left: "Disconnected to the social world", right: "Connected to the social world" },
                                                 { num: "3", left: "Excluded from the social world", right: "Included in the social world" },
                                                 { num: "4", left: "Negative about my social relationships", right: "Positive about my social relationships" },
@@ -217,7 +217,7 @@ class OutcomeForm extends Component {
 
                                         <FillinQuestion
                                             name="q7"
-                                            question="What is your age?"
+                                            question="What is your age in years?"
                                             placeholder="Age"
                                             onAnswerChange={(ans) => this.setState({ q7: ans })} />
 
